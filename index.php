@@ -24,6 +24,7 @@ include('header.php');
                 <h5><i class="material-icons">transform</i></h5>
                 <a>Gestión de Traslados</a>
             </div>
+            <br>
             <div class="menu-items" data-tooltip="Generar reportes desde y hasta una fecha aproximada." onclick="window.location = 'GestionReportes.php';">
                 <h5><i class="material-icons">content_copy</i></h5>
                 <a>Gestión de Reportes</a>

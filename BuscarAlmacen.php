@@ -9,11 +9,11 @@ include("header.php");
                 <hr>
                 <div class="col s3">
                     <label for="username">Nombre</label>
-                    <input id="nombre" placeholder="Nombre del Almacen" id="search" type="search" required>
+                    <input id="nombre" placeholder="Nombre del Almacen" id="search" type="search">
                 </div>
                 <div class="col s3">
                     <label for="username">ID</label>
-                    <input id="id" placeholder="ID del Almacen" id="search" type="search" required>
+                    <input id="id" placeholder="ID del Almacen" id="search" type="search">
                 </div>
                 <div class="col s3">
                     <p>
@@ -23,12 +23,12 @@ include("header.php");
                     <br>
                 </div>
             </div>
-            <button id="buscar" class="btn waves-effect waves-light orange darken-3">Buscar
-                <i class="material-icons right">search</i>
-            </button>
-            <a style="background-color:#0F6BFD;"class="waves-effect waves-light btn" href="#modal1"> <i class="material-icons right">add_circle_outline</i>Nuevo</a>
-        </form>
 
+        </form>
+        <button id="buscar" class="btn waves-effect waves-light orange darken-3">Buscar
+            <i class="material-icons right">search</i>
+        </button>
+        <a style="background-color:#0F6BFD;"class="waves-effect waves-light btn" href="#modal1"> <i class="material-icons right">add_circle_outline</i>Nuevo</a>
     </div>
     <br>
     <br>
@@ -44,28 +44,8 @@ include("header.php");
                 </tr>
             </thead>
 
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Almacen 1</td>
-                    <td>8</td>
-                    <td>10</td>
-                    <td><a class="waves-effect waves-light btn orange darken-3">ver</a></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Almacen 2</td>
-                    <td>3</td>
-                    <td>16</td>
-                    <td><a class="waves-effect waves-light btn orange darken-3">ver</a></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Almacen 3</td>
-                    <td>0</td>
-                    <td>10</td>
-                    <td><a class="waves-effect waves-light btn orange darken-3">ver</a></td>
-                </tr>
+            <tbody id="almacenes">
+
             </tbody>
         </table>
     </div>
