@@ -23,12 +23,11 @@ include("header.php");
                     <br>
                 </div>
             </div>
-
         </form>
         <button id="buscar" class="btn waves-effect waves-light orange darken-3">Buscar
             <i class="material-icons right">search</i>
         </button>
-        <a id="crear" style="background-color:#0F6BFD;" class="waves-effect waves-light btn" href="#modal1"> <i class="material-icons right">add_circle_outline</i>Nuevo</a>
+        <a style="background-color:#0F6BFD;" class="waves-effect waves-light btn" href="#modal1"> <i class="material-icons right">add_circle_outline</i>Nuevo</a>
     </div>
     <br>
     <br>
@@ -61,7 +60,7 @@ include("header.php");
                 <form style="margin-top: 10px;" class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Nombre" id="first_name" type="text" class="validate">
+                            <input id="nombre_almacen" placeholder="Nombre" id="first_name" type="text" class="validate">
                             <label for="almacen_name">Nombre</label>
                         </div>
                         <div class="input-field col s12">
@@ -74,7 +73,33 @@ include("header.php");
         </div>
         <div class="modal-footer">
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Crear</a>
+            <a id="crear" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Crear</a>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h3 class="center">Edición de Almacén</h3>
+            <p class="center">Modifique los datos del almacén</p>
+            <div class="row">
+                <form style="margin-top: 10px;" class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="nombre_almacen_mod" placeholder="Nombre" id="first_name" type="text" class="validate">
+                            <label for="almacen_name">Nombre</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <label for="spinner">Peso Máximo:</label>
+                            <input id="input-max_mod" min="0" max="100" type="number" name="value">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+            <a id="editar" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Editar</a>
+            <a id="eliminar" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Eliminar</a>
         </div>
     </div>
 </body>

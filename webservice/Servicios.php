@@ -1,7 +1,21 @@
 <?php
 
 include "db.php";
+//CREATE
 
+if (isset($_REQUEST['NEWALMACEN'])) {
+    $nombre = $_REQUEST['nombrea'];
+    $tamano = $_REQUEST['tamano'];
+    $query = "INSERT INTO ALMACEN (NOMBRE,UNILIBRES, UNIMAX) VALUES ('$nombre',0,'$tamano')";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        echo "ok";
+    } else {
+        echo "No se pudo crear el almacén. Datos no válidos";
+    }
+}
+
+//READ
 if (isset($_REQUEST['BGA'])) {
     $query = "SELECT * FROM ALMACEN";
     if (isset($_REQUEST['uni_libres'])) {
@@ -46,7 +60,7 @@ if (isset($_REQUEST['BEI'])) {
 
 if (isset($_REQUEST['BEAIDN'])) {
     $Nomb = $_REQUEST['namea'];
-    $idalma = $_REQUEST['IDA'];
+    $idalma = $_REQUEST['idalma'];
     $query = "SELECT * FROM ALMACEN WHERE IDALMACEN Like '%$idalma%' AND NOMBRE Like '%$Nomb%'";
     if (isset($_REQUEST['uni_libres'])) {
         $query = $query + " AND UNILIBRE > 0";
