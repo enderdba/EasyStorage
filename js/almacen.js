@@ -5,13 +5,28 @@ $(document).ready(function () {
     function actualizarValores() {
         inputNombre = $("#nombre").val();
         inputId = $("#id").val();
+        inputUnidadesLibres = $('#filled-in-box').prop('checked');
+        console.log(inputUnidadesLibres);
     }
 
     //CAMPOS
+    //busqueda
     $("#nombre").val();
     $("#id").val();
+
+    //creacion
+    $("#nombre").val();
+    $("#monto").val();
+
+    //botones
     var buscar = $("#buscar");
+    var crear = $("#crear");
+
     //EVENT LISTENERS
+    crear.click(function () {
+
+    });
+
     buscar.click(function () {
         actualizarValores();
         $('.table').hide("fold", 1000);
@@ -20,12 +35,28 @@ $(document).ready(function () {
         //DECISIONES PARA BUSQUEDAS CON CRITERIOS
         //urlbase general
         var url = "webservice/Servicios.php?BGA=";
-        if (inputNombre){
+
+        //busqueda con nombre
+        if (inputNombre) {
             inputNombre = encodeURI(inputNombre);
-            url = "webservice/Servicios.php?BEA=&namea="+inputNombre;
+            url = "webservice/Servicios.php?BEA=&namea=" + inputNombre;
+            console.log(url);
+        } else if (inputId) {
+            inputId = encodeURI(inputId);
+            url = "webservice/Servicios.php?BEI=&idalma=" + inputId;
+            console.log(url);
+        } else if (inputNombre && inputId) {
+            inputNombre = encodeURI(inputNombre);
+            inputId = encodeURI(inputId);
+            url = "webservice/Servicios.php?BEAIDN=&namea=&idalma=" + inputNombre;
             console.log(url);
         }
-        
+
+        //concateno al final la decision si tiene unidades libres o no
+        if (inputUnidadesLibres === "true") {
+            url = url + "&uni_libres=true";
+        }
+
         $.getJSON(url, function (result) {
             console.log(result);
             $.each(result, function (i, field) {

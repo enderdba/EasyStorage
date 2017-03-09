@@ -3,9 +3,11 @@
 include "db.php";
 
 if (isset($_REQUEST['BGA'])) {
-
-    $q = mysqli_query($con, "SELECT * FROM ALMACEN");
-
+    $query = "SELECT * FROM ALMACEN";
+    if (isset($_REQUEST['uni_libres'])) {
+        $query = $query + " WHERE UNILIBRE > 0";
+    }
+    $q = mysqli_query($con, $query);
     while ($row = mysqli_fetch_object($q)) {
         $data[] = $row;
     }
@@ -16,6 +18,9 @@ if (isset($_REQUEST['BGA'])) {
 if (isset($_REQUEST['BEA'])) {
     $Nomb = $_REQUEST['namea'];
     $query = "SELECT * FROM ALMACEN WHERE NOMBRE Like '%$Nomb%'";
+    if (isset($_REQUEST['uni_libres'])) {
+        $query = $query + " AND UNILIBRE > 0";
+    }
     $q = mysqli_query($con, $query);
 
     while ($row = mysqli_fetch_object($q)) {
@@ -26,20 +31,12 @@ if (isset($_REQUEST['BEA'])) {
 }
 
 if (isset($_REQUEST['BEI'])) {
-    $idalma = $_REQUEST['IDA'];
-    $q = mysqli_query($con, "SELECT * FROM ALMACEN WHERE IDALMACEN = '$idalma'");
-
-    while ($row = mysqli_fetch_object($q)) {
-        $data[] = $row;
+    $idalma = $_REQUEST['idalma'];
+    $query = "SELECT * FROM ALMACEN WHERE IDALMACEN Like '%$idalma%'";
+    if (isset($_REQUEST['uni_libres'])) {
+        $query = $query + " AND UNILIBRE > 0";
     }
-
-    echo json_encode($data);
-}
-
-if (isset($_REQUEST['BEAN'])) {
-    $librena = $_REQUEST['libre_enable'];
-    $q = mysqli_query($con, "SELECT * FROM ALMACEN WHERE UNILIBRE > 0");
-
+    $q = mysqli_query($con, $query);
     while ($row = mysqli_fetch_object($q)) {
         $data[] = $row;
     }
@@ -50,7 +47,11 @@ if (isset($_REQUEST['BEAN'])) {
 if (isset($_REQUEST['BEAIDN'])) {
     $Nomb = $_REQUEST['namea'];
     $idalma = $_REQUEST['IDA'];
-    $q = mysqli_query($con, "SELECT * FROM ALMACEN WHERE NOMBRE LIKE %" + $Nomb + "% AND IDALMACEN ='$idalma'");
+    $query = "SELECT * FROM ALMACEN WHERE IDALMACEN Like '%$idalma%' AND NOMBRE Like '%$Nomb%'";
+    if (isset($_REQUEST['uni_libres'])) {
+        $query = $query + " AND UNILIBRE > 0";
+    }
+    $q = mysqli_query($con, $query);
 
     while ($row = mysqli_fetch_object($q)) {
         $data[] = $row;

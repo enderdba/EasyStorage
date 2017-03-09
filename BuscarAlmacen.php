@@ -28,7 +28,7 @@ include("header.php");
         <button id="buscar" class="btn waves-effect waves-light orange darken-3">Buscar
             <i class="material-icons right">search</i>
         </button>
-        <a style="background-color:#0F6BFD;"class="waves-effect waves-light btn" href="#modal1"> <i class="material-icons right">add_circle_outline</i>Nuevo</a>
+        <a id="crear" style="background-color:#0F6BFD;" class="waves-effect waves-light btn" href="#modal1"> <i class="material-icons right">add_circle_outline</i>Nuevo</a>
     </div>
     <br>
     <br>
