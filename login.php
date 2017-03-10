@@ -8,7 +8,7 @@ include("header.php");
             <div class="form-cont white">
                 <br>
                 <div>
-                    <label for="username">Usuario</label>
+                    <label for="username">Usuarissso</label>
                     <input placeholder="Usuario" id="username" type="text" class="validate">
 
                 </div>
