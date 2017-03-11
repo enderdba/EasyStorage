@@ -38,7 +38,7 @@ include("header.php");
                 <br>
             </form>
         </div>
-        <button class="buscar btn waves-effect waves-light orange darken-3">Buscar
+        <button id="buscar" class="buscar btn waves-effect waves-light orange darken-3">Buscar
             <i class="material-icons right">search</i>
         </button>
         <a style="background-color:#0F6BFD;"class="waves-effect waves-light btn" href="#modal1"> <i class="material-icons right">add_circle_outline</i>Nuevo</a>
@@ -57,8 +57,8 @@ include("header.php");
                 </tr>
             </thead>
 
-            <tbody>
-                <tr>
+            <tbody id="contenedores">
+<!--                <tr>
                     <td>1</td>
                     <td>Contenedor 1</td>
                     <td>Grande</td>
@@ -78,7 +78,7 @@ include("header.php");
                     <td>Mediano</td>
                     <td>Almacen 3</td>
                     <td><a class="waves-effect waves-light btn orange darken-3">ver</a></td>
-                </tr>
+                </tr>-->
             </tbody>
         </table>
     </div>
