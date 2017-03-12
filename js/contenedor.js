@@ -7,9 +7,9 @@ $(document).ready(function () {
         esPequeño = $('#filled-in-box').prop('checked');
         esMediano = $('#filled-in-box').prop('checked');
         esGrande = $('#filled-in-box').prop('checked');
-        console.log("Es pequeño? "+esPequeño);
-        console.log("Es mediano? "+esMediano);
-        console.log("Es grande? "+esGrande);
+        console.log(esPequeño);
+        console.log(esMediano);
+        console.log(esGrande);
     }
     var buscar = $("#buscar");
     var crear = $("#crear");
