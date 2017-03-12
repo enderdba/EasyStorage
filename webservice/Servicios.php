@@ -15,6 +15,19 @@ if (isset($_REQUEST['NEWALMACEN'])) {
     }
 }
 
+if (isset($_REQUEST['NEWUSUARIO'])) {
+    $nombre = $_REQUEST['nombreu'];
+    $tamano = $_REQUEST['cargo'];
+    $query = "INSERT INTO USUARIO (NOMBRE,CARGO) VALUES ('$nombre',0,'$tamano')";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        echo "ok";
+    } else {
+        echo "No se pudo crear el usuario. Datos no válidos";
+    }
+}
+
+
 //READ
 if (isset($_REQUEST['BGA'])) {
     $query = "SELECT * FROM ALMACEN";
@@ -44,6 +57,20 @@ if (isset($_REQUEST['BEA'])) {
     echo json_encode($data);
 }
 
+
+if (isset($_REQUEST['BEU'])) {
+    $Nomb = $_REQUEST['nameu'];
+    $query = "SELECT * FROM USUARIO WHERE NOMBRE Like '%$Nombu%'";
+
+    $q = mysqli_query($con, $query);
+
+    while ($row = mysqli_fetch_object($q)) {
+        $data[] = $row;
+    }
+
+    echo json_encode($data);
+}
+
 if (isset($_REQUEST['BEI'])) {
     $idalma = $_REQUEST['idalma'];
     $query = "SELECT * FROM ALMACEN WHERE IDALMACEN Like '%$idalma%'";
@@ -58,13 +85,38 @@ if (isset($_REQUEST['BEI'])) {
     echo json_encode($data);
 }
 
+if (isset($_REQUEST['BEIU'])) {
+    $idalma = $_REQUEST['idusua'];
+    $query = "SELECT * FROM USUARIO WHERE IDUSUARIO Like '%$idusua%'";
+
+    $q = mysqli_query($con, $query);
+    while ($row = mysqli_fetch_object($q)) {
+        $data[] = $row;
+    }
+
+    echo json_encode($data);
+}
 if (isset($_REQUEST['BEAIDN'])) {
     $Nomb = $_REQUEST['namea'];
     $idalma = $_REQUEST['idalma'];
-    $query = "SELECT * FROM ALMACEN WHERE IDALMACEN Like '%$idalma%' AND NOMBRE Like '%$Nomb%'";
+    $query = "SELECT * FROM ALMACEN WHERE IDALMACEN Like '%$idalma%' AND NOMBRE Like '%$Nombu%'";
     if (isset($_REQUEST['uni_libres'])) {
         $query = $query + " AND UNILIBRE > 0";
     }
+    $q = mysqli_query($con, $query);
+
+    while ($row = mysqli_fetch_object($q)) {
+        $data[] = $row;
+    }
+
+    echo json_encode($data);
+}
+
+if (isset($_REQUEST['BEUIDN'])) {
+    $Nomb = $_REQUEST['nameu'];
+    $idalma = $_REQUEST['idusua'];
+    $query = "SELECT * FROM USUARIO WHERE IDUSUARIO Like '%$idusua%' AND NOMBRE Like '%$Nomb%'";
+
     $q = mysqli_query($con, $query);
 
     while ($row = mysqli_fetch_object($q)) {
@@ -105,7 +157,7 @@ if (isset($_REQUEST['BECN'])) {
     }else if(isset ($_REQUEST['esg']) == "true"){
         $query = $query . " AND UNIDADES = 3";
     }
-    
+
     $q = mysqli_query($con, $query);
     while ($row = mysqli_fetch_object($q)) {
         $data[] = $row;
@@ -118,7 +170,7 @@ if (isset($_REQUEST['BECN'])) {
 if (isset($_REQUEST['BECI'])) {
     $id = $_REQUEST['idcont'];
     $query = "SELECT * FROM CONTENEDOR INNER JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN INNER JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO WHERE IDCONTENEDOR LIKE '%$id%'";
-    
+
     if(isset($_REQUEST['esp']) == "true"){
         $query = $query . " AND UNIDADES = 1";
     }else if(isset ($_REQUEST['esm']) == "true"){
@@ -126,7 +178,7 @@ if (isset($_REQUEST['BECI'])) {
     }else if(isset ($_REQUEST['esg']) == "true"){
         $query = $query . " AND UNIDADES = 3";
     }
-    
+
     $q = mysqli_query($con, $query);
     while ($row = mysqli_fetch_object($q)) {
         $data[] = $row;
@@ -143,7 +195,7 @@ if (isset($_REQUEST['BECNI'])) {
                 . "INNER JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO "
                 . "INNER JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN "
                 . "WHERE IDCONTENEDOR LIKE '%$id%' AND LOTE LIKE '%$lote%'";
-    
+
     if(isset($_REQUEST['esp']) == "true"){
         $query = $query . " AND UNIDADES = 1";
     }else if(isset ($_REQUEST['esm']) == "true"){
