@@ -114,5 +114,6 @@ include("header.php");
         </div>
     </div>
 </body>
+<script type="text/javascript" src="js/contenedor.js"></script>
 <?php
 include("footer.php");

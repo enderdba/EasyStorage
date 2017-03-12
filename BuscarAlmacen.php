@@ -65,7 +65,7 @@ include("header.php");
                         </div>
                         <div class="input-field col s12">
                             <label for="spinner">Peso Máximo:</label>
-                            <input id="input-max" min="0" max="100" type="number" name="value">
+                            <input onkeyup="this.value = this.value.replace(/[^0-9]/g, '');" id="input-max" min="0" max="100" type="number" step="1"  pattern="\d*" name="value">
                         </div>
                     </div>
                 </form>
@@ -85,12 +85,18 @@ include("header.php");
                 <form style="margin-top: 10px;" class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="nombre_almacen_mod" placeholder="Nombre" id="first_name" type="text" class="validate">
+                            <input id="id_mod" placeholder="ID" type="text" disabled>
+                            <label for="almacen_name">ID</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="nombre_almacen_mod" placeholder="Nombre" type="text" class="validate">
                             <label for="almacen_name">Nombre</label>
                         </div>
                         <div class="input-field col s12">
                             <label for="spinner">Peso Máximo:</label>
-                            <input id="input-max_mod" min="0" max="100" type="number" name="value">
+                            <br>
+                            <p>Nota: La modificación de peso del Almacén dependerá del espacio libre que éste posea.</p>
+                            <input id="input-max_mod" min="0" max="100" type="number" step ="1" name="value">
                         </div>
                     </div>
                 </form>
@@ -98,8 +104,8 @@ include("header.php");
         </div>
         <div class="modal-footer">
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-            <a id="editar" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Editar</a>
-            <a id="eliminar" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Eliminar</a>
+            <a id="editar"  class=" modal-action modal-close waves-effect waves-green btn-flat">Editar</a>
+            <a id="eliminar" class=" modal-action modal-close waves-effect waves-green btn-flat">Eliminar</a>
         </div>
     </div>
 </body>
