@@ -93,16 +93,20 @@ include("header.php");
                 <form style="margin-top: 10px;" class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Nombre" id="first_name" type="text" class="validate">
+                            <input placeholder="Nombre" id="new_contenedor" type="text" class="validate">
                             <label for="almacen_name">Nombre</label>
                         </div>
                         <div class="input-field col s12">
-                            <select>
+                            <select id="tamaño">
                                 <option value="" disabled selected>Seleccione un tipo de Contenedor</option>
                                 <option value="1">Pequeño</option>
                                 <option value="2">Mediano</option>
                                 <option value="3">Grande</option>
                             </select>
+                        </div>
+                        <div class="input-field col s12">
+                            <input placeholder="Almacen en donde se ubicara" id="almacen_asociado" type="text" class="validate">
+                            <label for="almacen_aso">Almacen Asociado</label>
                         </div>
                     </div>
                 </form>

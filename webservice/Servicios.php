@@ -112,11 +112,20 @@ if (isset($_REQUEST['BECI'])) {
     $id = $_REQUEST['id'];
     $query = "SELECT * FROM CONTENEDOR WHERE ID Like '%$id%'";
     if(isset($_REQUEST['esp'])){
-        $query += " AND TAMAÑO = 'Pequeño'";
+        $query = "SELECT * FROM CONTENEDOR "
+                . "JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO "
+                . "JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN "
+                . "WHERE IDCONTENEDOR LIKE '%$id%' AND UNIDADES = 1";
     }else if(isset ($_REQUEST['esm'])){
-        $query += " AND TAMAÑO = 'Mediano'";
+        $query = "SELECT * FROM CONTENEDOR "
+                . "JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO "
+                . "JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN "
+                . "WHERE IDCONTENEDOR LIKE '%$id%' AND UNIDADES = 3";
     }else if(isset ($_REQUEST['esg'])){
-        $query += " AND TAMAÑO = 'Grande'";
+        $query = "SELECT * FROM CONTENEDOR "
+                . "JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO "
+                . "JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN "
+                . "WHERE IDCONTENEDOR LIKE '%$id%' AND UNIDADES = 3";
     }
     $q = mysqli_query($con, $query);
     while ($row = mysqli_fetch_object($q)) {
@@ -130,13 +139,16 @@ if (isset($_REQUEST['BECI'])) {
 if (isset($_REQUEST['BECNI'])) {
     $id = $_REQUEST['id'];
     $NombC = $_REQUEST['namec'];
-    $query = "SELECT * FROM CONTENEDOR WHERE ID Like '%$id%' AND NOMBRE Like '%$NombC%'";
+    $query = "SELECT * FROM CONTENEDOR "
+                . "JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO "
+                . "JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN "
+                . "WHERE IDCONTENEDOR LIKE '%$id%' AND nombre? LIKE '%$NombC%'";
     if(isset($_REQUEST['esp'])){
-        $query += " AND TAMAÑO = 'Pequeño'";
+        $query += " AND UNIDADES = 1";
     }else if(isset ($_REQUEST['esm'])){
-        $query += " AND TAMAÑO = 'Mediano'";
+        $query += " AND UNIDADES = 2";
     }else if(isset ($_REQUEST['esg'])){
-        $query += " AND TAMAÑO = 'Grande'";
+        $query += " AND UNIDADESs = 3";
     }
     $q = mysqli_query($con, $query);
     while ($row = mysqli_fetch_object($q)) {
