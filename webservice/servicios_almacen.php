@@ -33,11 +33,23 @@ if (isset($_REQUEST['EDITALMACEN'])) {
     }
 }
 
+//DELETE
+if (isset($_REQUEST['DELETEALMACEN'])) {
+    $idalma= $_REQUEST['idalma'];
+    $query = "DELETE FROM ALMACEN WHERE IDALMACEN ='$idalma'";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        echo "ok";
+    } else {
+        echo "No se pudo eliminar el almacén.";
+    }
+}
+
 //READ
 if (isset($_REQUEST['BGA'])) {
     $query = "SELECT * FROM ALMACEN";
     if (isset($_REQUEST['uni_libres'])) {
-        $query = $query + " WHERE UNILIBRE > 0";
+        $query = $query . " WHERE UNILIBRES > 0";
     }
     $q = mysqli_query($con, $query);
     while ($row = mysqli_fetch_object($q)) {
@@ -51,7 +63,7 @@ if (isset($_REQUEST['BEA'])) {
     $Nomb = $_REQUEST['namea'];
     $query = "SELECT * FROM ALMACEN WHERE NOMBRE Like '%$Nomb%'";
     if (isset($_REQUEST['uni_libres'])) {
-        $query = $query + " AND UNILIBRE > 0";
+        $query = $query . " AND UNILIBRES > 0";
     }
     $q = mysqli_query($con, $query);
 
@@ -77,7 +89,7 @@ if (isset($_REQUEST['BEI'])) {
     $idalma = $_REQUEST['idalma'];
     $query = "SELECT * FROM ALMACEN WHERE IDALMACEN Like '%$idalma%'";
     if (isset($_REQUEST['uni_libres'])) {
-        $query = $query + " AND UNILIBRE > 0";
+        $query = $query . " AND UNILIBRES > 0";
     }
     $q = mysqli_query($con, $query);
     while ($row = mysqli_fetch_object($q)) {
@@ -92,7 +104,7 @@ if (isset($_REQUEST['BEAIDN'])) {
     $idalma = $_REQUEST['idalma'];
     $query = "SELECT * FROM ALMACEN WHERE IDALMACEN Like '%$idalma%' AND NOMBRE Like '%$Nomb%'";
     if (isset($_REQUEST['uni_libres'])) {
-        $query = $query + " AND UNILIBRE > 0";
+        $query = $query . " AND UNILIBRES > 0";
     }
     $q = mysqli_query($con, $query);
 

@@ -28,7 +28,33 @@ $(document).ready(function () {
     var editar = $("#editar");
     var eliminar = $("#eliminar");
     //EVENT LISTENERS
+    function refreshResult() {
+        actualizarValores();
+        $('.table').hide();
+        $("#almacenes").html("");
 
+        //DECISIONES PARA BUSQUEDAS CON CRITERIOS
+        //urlbase general
+        var url = "webservice/servicios_almacen.php?BGA=";
+
+        $.getJSON(url, function (result) {
+            console.log(result);
+            $.each(result, function (i, field) {
+                var id = field.IDALMACEN;
+                var nombre = field.NOMBRE;
+                var unimax = field.UNIMAX;
+                var unilibres = field.UNILIBRES;
+                $("#almacenes").append('<tr>' +
+                        '<td>' + id + '</td>' +
+                        '<td>' + nombre + '</td>' +
+                        '<td>' + unilibres + '</td>' +
+                        '<td>' + unimax + '</td>' +
+                        '<td><a data-target="' + id + '" class="storageshow waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
+            });
+            $('.table').show("fold", 1000);
+            addEvents();
+        });
+    }
     function addEvents() {
         $(".storageshow").click(function () {
             console.log("aaaaa" + $(this).data("target"));
@@ -109,6 +135,36 @@ $(document).ready(function () {
         });
     });
 
+    eliminar.click(function () {
+        actualizarValores();
+        console.log(" modId: " + modId);
+        var url = "webservice/servicios_almacen.php";
+        var dataString = "DELETEALMACEN&idalma=" + modId;
+        console.log(url + "?" + dataString);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: dataString,
+            crossDomain: true,
+            cache: false,
+            timeout: 10000,
+            beforeSend: function () {
+                Materialize.toast("Eliminando almacén..", 2000);
+            },
+            success: function (data) {
+                if (data === "ok") {
+                    Materialize.toast('Almacén eliminado correctamente!', 2000);
+                } else {
+                    Materialize.toast(data, 4000);
+                }
+            },
+            error: function () {
+                Materialize.toast("Se agotó el tiempo de espera del servidor.");
+            }
+        });
+        refreshResult();
+    });
+
     editar.click(function () {
         actualizarValores();
         modNombre = encodeURI(modNombre);
@@ -142,29 +198,12 @@ $(document).ready(function () {
                 Materialize.toast("Se agotó el tiempo de espera del servidor.");
             }
         });
-
-
-        $.getJSON(url, function (result) {
-            console.log(result);
-            $.each(result, function (i, field) {
-                var id = field.IDALMACEN;
-                var nombre = field.NOMBRE;
-                var unimax = field.UNIMAX;
-                var unilibres = field.UNILIBRES;
-                $("#almacenes").append('<tr>' +
-                        '<td>' + id + '</td>' +
-                        '<td>' + nombre + '</td>' +
-                        '<td>' + unilibres + '</td>' +
-                        '<td>' + unimax + '</td>' +
-                        '<td><a data-target="' + id + '" class="storageshow waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
-            });
-            $('.table').show("fold", 1000);
-        });
+        refreshResult();
     });
 
     buscar.click(function () {
         actualizarValores();
-        $('.table').hide("fold", 1000);
+        $('.table').hide();
         $("#almacenes").html("");
 
         //DECISIONES PARA BUSQUEDAS CON CRITERIOS
@@ -190,10 +229,10 @@ $(document).ready(function () {
         }
 
         //concateno al final la decision si tiene unidades libres o no
-        if (inputUnidadesLibres === "true") {
+        if (inputUnidadesLibres) {
             url = url + "&uni_libres=true";
         }
-
+        console.log(url);
         $.getJSON(url, function (result) {
             console.log(result);
             $.each(result, function (i, field) {
