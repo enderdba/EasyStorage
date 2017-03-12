@@ -14,9 +14,6 @@ $(document).ready(function () {
         select = document.getElementById("tamaño");
         nTamaño = select.options[select.selectedIndex].value;
         validarTamaño(nTamaño);
-        console.log(esPequeño);
-        console.log(esMediano);
-        console.log(esGrande);
     }
     
     //DEPENDIENDO DEL ID DE TAMAÑO, DEVOLVER RESULTADO
@@ -34,51 +31,51 @@ $(document).ready(function () {
     
     var buscar = $("#buscar");
     var crear = $("#crear");
-
-    buscar.click(function () {
+    
+    buscar.click(function (){
         actualizarValores();
         $('.table').hide("fold", 1000);
         $("#contenedores").html("");
-
+        
         //URL GENERAL
-        var url = "webservice/Servicios.php?BGC=";
+        var url = "webservice/servicios_contenedor.php?BGC=";
         
         //POR ID Y LOTE
         if(inputLote && inputID){
             inputLote = encodeURI(inputLote);
             inputID = encodeURI(inputID);
-            url = "webservice/Servicios.php?BECNI=&lote="+inputLote+"&idcont="+inputID;
+            url = "webservice/servicios_contenedor.php?BECNI=&lote="+inputLote+"&idcont="+inputID;
             console.log(url);
         }
-
-        //POR NOMBRE
-        else if (inputNombre) {
-            inputNombre = encodeURI(inputNombre);
-            url = "webservice/servicios_contenedor.php?BECN=&namec=" + inputNombre;
+        
+        //POR LOTE
+        else if (inputLote) {
+            inputLote = encodeURI(inputLote);
+            url = "webservice/servicios_contenedor.php?BECN=&lote=" + inputLote;
             console.log(url);
         }
-
+        
         //POR ID
-        else if (inputID) {
+        else if(inputID){
             inputID = encodeURI(inputID);
-            url = "webservice/servicios_contenedor.php?BECI=&id=" + inputID;
+            url = "webservice/servicios_contenedor.php?BECI=&idcont=" + inputID;
             console.log(url);
         }
-
-
+        
+        
         //AÑADO EL TAMAÑO AL URL EN CASO DE TENERLO
         //POR TAMAÑO: PEQUEÑO
         if(esPequeño){
             url += "&esp=true";
             console.log(url);
         }
-
+        
         //POR TAMAÑO: MEDIANO
         else if(esMediano){
             url += "&esm=true";
             console.log(url);
         }
-
+        
         //POR TAMAÑO: GRANDE
         else if(esGrande){
             url+= "&esg=true";
@@ -101,12 +98,10 @@ $(document).ready(function () {
                         '<td>' + valTamaño + '</td>' +
                         '<td>' + almacenAso + '</td>' +
                         '<td><a class="waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
-
-            }
-            );
+            });
             $('.table').show("fold", 1000);
         });
-
+        
     });
     
     //NO ESTA LISTO u.u
@@ -121,7 +116,7 @@ $(document).ready(function () {
         //Validar que el nombre del almacen asociado exista y tenga unidades libres
         $.ajax({
             type: "POST",
-            url: "webservice/Servicios.php",
+            url: "webservice/servicios_contenedor.php",
             data: "NAV=&n="+nAlmacenAso,
             crossDomain: true,
             cache: false,
@@ -150,7 +145,7 @@ $(document).ready(function () {
             return;
         }
 
-        var url = "webservice/Servicios.php";
+        var url = "webservice/servicios_contenedor.php";
         var dataString = "NEWCONTENEDOR=&nombrec=" + nContenedor + "&tamano=" + valTamaño + "&alm_aso=" + nAlmacenAso;
         if (!$.trim(nContenedor).length > 0 && !$.trim(valTamaño).length > 0) {
             Materialize.toast("Debe escribir en todos los campos para crear un almacén", 3000);
