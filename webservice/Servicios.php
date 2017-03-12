@@ -44,6 +44,17 @@ if (isset($_REQUEST['BEA'])) {
     echo json_encode($data);
 }
 
+if (isset($_REQUEST['BEIO'])) {
+    $idalma = $_REQUEST['idalma'];
+    $query = "SELECT * FROM ALMACEN WHERE IDALMACEN = '$idalma'";
+    $q = mysqli_query($con, $query);
+    while ($row = mysqli_fetch_object($q)) {
+        $data[] = $row;
+    }
+
+    echo json_encode($data);
+}
+
 if (isset($_REQUEST['BEI'])) {
     $idalma = $_REQUEST['idalma'];
     $query = "SELECT * FROM ALMACEN WHERE IDALMACEN Like '%$idalma%'";
