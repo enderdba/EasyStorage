@@ -78,7 +78,14 @@ if (isset($_REQUEST['BEAIDN'])) {
 
 //BUSQUEDA GENERAL
 if (isset($_REQUEST['BGC'])) {
-    $query = "SELECT * FROM CONTENEDOR";
+    $query = "SELECT * FROM CONTENEDOR INNER JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN INNER JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO";
+    if(isset($_REQUEST['esp']) == "true"){
+        $query = $query . " WHERE UNIDADES = 1";
+    }else if(isset ($_REQUEST['esm']) == "true"){
+        $query = $query . " WHERE UNIDADES = 2";
+    }else if(isset ($_REQUEST['esg']) == "true"){
+        $query = $query . " WHERE UNIDADES = 3";
+    }
     $q = mysqli_query($con, $query);
     while ($row = mysqli_fetch_object($q)) {
         $data[] = $row;
@@ -87,16 +94,16 @@ if (isset($_REQUEST['BGC'])) {
     echo json_encode($data);
 }
 
-//BUSQUEDA POR NORMBRE
+//BUSQUEDA POR LOTE
 if (isset($_REQUEST['BECN'])) {
-    $NombC = $_REQUEST['namec'];
-    $query = "SELECT * FROM CONTENEDOR WHERE NOMBRE Like '%$NombC%'";
-    if(isset($_REQUEST['esp'])){
-        $query += " AND TAMAÑO = 'Pequeño'";
-    }else if(isset ($_REQUEST['esm'])){
-        $query += " AND TAMAÑO = 'Mediano'";
-    }else if(isset ($_REQUEST['esg'])){
-        $query += " AND TAMAÑO = 'Grande'";
+    $lote = $_REQUEST['lote'];
+    $query = "SELECT * FROM CONTENEDOR INNER JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN INNER JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO WHERE LOTE Like '%$lote%'";
+    if(isset($_REQUEST['esp']) == "true"){
+        $query = $query . " AND UNIDADES = 1";
+    }else if(isset ($_REQUEST['esm']) == "true"){
+        $query = $query . " AND UNIDADES = 2";
+    }else if(isset ($_REQUEST['esg']) == "true"){
+        $query = $query . " AND UNIDADES = 3";
     }
     
     $q = mysqli_query($con, $query);
@@ -109,24 +116,17 @@ if (isset($_REQUEST['BECN'])) {
 
 //BUSQUEDA POR ID
 if (isset($_REQUEST['BECI'])) {
-    $id = $_REQUEST['id'];
-    $query = "SELECT * FROM CONTENEDOR WHERE ID Like '%$id%'";
-    if(isset($_REQUEST['esp'])){
-        $query = "SELECT * FROM CONTENEDOR "
-                . "JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO "
-                . "JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN "
-                . "WHERE IDCONTENEDOR LIKE '%$id%' AND UNIDADES = 1";
-    }else if(isset ($_REQUEST['esm'])){
-        $query = "SELECT * FROM CONTENEDOR "
-                . "JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO "
-                . "JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN "
-                . "WHERE IDCONTENEDOR LIKE '%$id%' AND UNIDADES = 3";
-    }else if(isset ($_REQUEST['esg'])){
-        $query = "SELECT * FROM CONTENEDOR "
-                . "JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO "
-                . "JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN "
-                . "WHERE IDCONTENEDOR LIKE '%$id%' AND UNIDADES = 3";
+    $id = $_REQUEST['idcont'];
+    $query = "SELECT * FROM CONTENEDOR INNER JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN INNER JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO WHERE IDCONTENEDOR LIKE '%$id%'";
+    
+    if(isset($_REQUEST['esp']) == "true"){
+        $query = $query . " AND UNIDADES = 1";
+    }else if(isset ($_REQUEST['esm']) == "true"){
+        $query = $query . " AND UNIDADES = 2";
+    }else if(isset ($_REQUEST['esg']) == "true"){
+        $query = $query . " AND UNIDADES = 3";
     }
+    
     $q = mysqli_query($con, $query);
     while ($row = mysqli_fetch_object($q)) {
         $data[] = $row;
@@ -137,19 +137,44 @@ if (isset($_REQUEST['BECI'])) {
 
 //BUSQUEDA COMBINADITA
 if (isset($_REQUEST['BECNI'])) {
-    $id = $_REQUEST['id'];
-    $NombC = $_REQUEST['namec'];
+    $id = $_REQUEST['idcont'];
+    $lote = $_REQUEST['lote'];
     $query = "SELECT * FROM CONTENEDOR "
-                . "JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO "
-                . "JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN "
-                . "WHERE IDCONTENEDOR LIKE '%$id%' AND nombre? LIKE '%$NombC%'";
-    if(isset($_REQUEST['esp'])){
-        $query += " AND UNIDADES = 1";
-    }else if(isset ($_REQUEST['esm'])){
-        $query += " AND UNIDADES = 2";
-    }else if(isset ($_REQUEST['esg'])){
-        $query += " AND UNIDADESs = 3";
+                . "INNER JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO "
+                . "INNER JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN "
+                . "WHERE IDCONTENEDOR LIKE '%$id%' AND LOTE LIKE '%$lote%'";
+    
+    if(isset($_REQUEST['esp']) == "true"){
+        $query = $query . " AND UNIDADES = 1";
+    }else if(isset ($_REQUEST['esm']) == "true"){
+        $query = $query . " AND UNIDADES = 2";
+    }else if(isset ($_REQUEST['esg']) == "true"){
+        $query = $query . " AND UNIDADES = 3";
     }
+    $q = mysqli_query($con, $query);
+    while ($row = mysqli_fetch_object($q)) {
+        $data[] = $row;
+    }
+
+    echo json_encode($data);
+}
+
+//NUEVO CONTENEDOR (AUN NO LISTO)
+if (isset($_REQUEST['NEWCONTENEDOR'])) {
+    $nombre = $_REQUEST['nombrea'];
+    $tamano = $_REQUEST['tamano'];
+    $query = "INSERT INTO ALMACEN (NOMBRE,UNILIBRES, UNIMAX) VALUES ('$nombre',0,'$tamano')";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        echo "ok";
+    } else {
+        echo "No se pudo crear el almacén. Datos no válidos";
+    }
+}
+
+if (isset($_REQUEST['NAV'])) {
+    $nombreA = $_REQUEST['n'];
+    $query = "SELECT * FROM CONTENEDOR";
     $q = mysqli_query($con, $query);
     while ($row = mysqli_fetch_object($q)) {
         $data[] = $row;

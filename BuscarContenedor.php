@@ -10,29 +10,29 @@ include("header.php");
         <div style="padding:10px; border-radius: 10px;" class="row white">
             <form style="margin-top:20px;">
                 <div class="left col s3">
-                    <label for="username">Nombre</label>
-                    <input placeholder="Nombre del Contenedor" id="search" type="search" required>
+                    <label for="username">Lote</label>
+                    <input placeholder="Lote del Contenedor" id="lote" type="search" required>
                 </div>
                 <div class="center col s3">
                     <label for="username">ID</label>
-                    <input placeholder="ID del Contenedor" id="search" type="search" required>
+                    <input placeholder="ID del Contenedor" id="idcont" type="search" required>
                 </div>
                 <div class="col s2">
                     <p>
-                        <input name="group1" type="radio" id="test1" />
-                        <label for="test1">Grande</label>
+                        <input name="group1" type="radio" id="check3" />
+                        <label for="check3">Grande</label>
                     </p>
                 </div>
                 <div class="col s2">
                     <p>
-                        <input name="group1" type="radio" id="test2" />
-                        <label for="test2">Mediano</label>
+                        <input name="group1" type="radio" id="check2" />
+                        <label for="check2">Mediano</label>
                     </p>
                 </div>
                 <div class="col s2">
                     <p>
-                        <input name="group1" type="radio" id="test3" />
-                        <label for="test3">Pequeño</label>
+                        <input name="group1" type="radio" id="check1" />
+                        <label for="check1">Pequeño</label>
                     </p>
                 </div>
                 <br>
@@ -50,7 +50,7 @@ include("header.php");
             <thead>
                 <tr>
                     <th data-field="id">Id</th>
-                    <th data-field="name">Nombre del Contenedor</th>
+                    <th data-field="name">Lote del Contenedor</th>
                     <th data-field="free">Tamaño</th>
                     <th data-field="max">Almacenado En</th>
                     <th data-field="buttons"></th>
@@ -118,5 +118,6 @@ include("header.php");
         </div>
     </div>
 </body>
+<script type="text/javascript" src="js/contenedor.js"></script>
 <?php
 include("footer.php");
