@@ -2,7 +2,7 @@
 include("header.php");
 ?>
 <body style="background-image:url(login.jpg) !important; background-size:cover">
-    <form action="index.php">
+    <form id="login-index" action="index.php">
         <div class="login container form-options center input-form blue darken-4">
             <h3 class="center white-text">Inicio de Sesión</h3>
             <div class="form-cont white">
