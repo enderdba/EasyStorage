@@ -168,7 +168,7 @@ $(document).ready(function () {
                         '<td>' + lote + '</td>' +
                         '<td>' + valTamaño + '</td>' +
                         '<td>' + almacenAso + '</td>' +
-                        '<td><a class="waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
+                        '<td><a class="storageshow waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
             });
             $('.table').show("fold", 1000);
             addEvents();
