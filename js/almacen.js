@@ -117,22 +117,7 @@ $(document).ready(function () {
         });
 
 
-        $.getJSON(url, function (result) {
-            console.log(result);
-            $.each(result, function (i, field) {
-                var id = field.IDALMACEN;
-                var nombre = field.NOMBRE;
-                var unimax = field.UNIMAX;
-                var unilibres = field.UNILIBRES;
-                $("#almacenes").append('<tr>' +
-                        '<td>' + id + '</td>' +
-                        '<td>' + nombre + '</td>' +
-                        '<td>' + unilibres + '</td>' +
-                        '<td>' + unimax + '</td>' +
-                        '<td><a data-target="' + id + '" class="storageshow waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
-            });
-            $('.table').show("fold", 1000);
-        });
+        window.setTimeout(refreshResult(), 1000);
     });
 
     eliminar.click(function () {
@@ -147,6 +132,7 @@ $(document).ready(function () {
             data: dataString,
             crossDomain: true,
             cache: false,
+            async: false,
             timeout: 10000,
             beforeSend: function () {
                 Materialize.toast("Eliminando almacén..", 2000);
@@ -162,7 +148,7 @@ $(document).ready(function () {
                 Materialize.toast("Se agotó el tiempo de espera del servidor.");
             }
         });
-        refreshResult();
+        window.setTimeout(refreshResult(), 1000);
     });
 
     editar.click(function () {
@@ -183,6 +169,7 @@ $(document).ready(function () {
             data: dataString,
             crossDomain: true,
             cache: false,
+            async: false,
             timeout: 10000,
             beforeSend: function () {
                 Materialize.toast("Editando almacén..", 2000);
@@ -198,7 +185,7 @@ $(document).ready(function () {
                 Materialize.toast("Se agotó el tiempo de espera del servidor.");
             }
         });
-        refreshResult();
+        window.setTimeout(refreshResult(), 1000);
     });
 
     buscar.click(function () {
