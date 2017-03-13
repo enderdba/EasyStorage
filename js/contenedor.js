@@ -209,6 +209,7 @@ $(document).ready(function () {
             timeout: 10000,
             success: function (data) {
                 almacenOK = true;
+                
                 if (data !== "Error al intentar consultar la tabla Almacenes") {
                     data = data.replace('[{"UNILIBRES":"',"");
                     uniLibres = data.replace('"}]',"");
