@@ -135,6 +135,41 @@ include("header.php");
             <a id= "crear" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Crear</a>
         </div>
     </div>
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h3 class="center">Datos del Contenedor</h3>
+            <div class="row">
+                <form style="margin-top: 10px;" class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="id_mod" placeholder="Lote" type="text" disabled>
+                            <label for="id_mod">Lote del Contenedor</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="tam_m" placeholder="Tamaño" type="text" disabled>
+                            <label for="tam_m">Tamaño del Contenedor</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="alm_m" placeholder="Almacen Asociado" type="text" disabled>
+                            <label for="alm_m">Almacen en donde se encuentra</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="color_m" placeholder="Color del Contenedor" type="text" disabled>
+                            <label for="lote_m">Color</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <label for="spinner">Peso (Kg)</label>
+                            <input id="peso_m" min="0" max="100" type="number" step ="1" name="value" disabled>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+            <a id="eliminar" class=" modal-action modal-close waves-effect waves-green btn-flat">Eliminar</a>
+        </div>
+    </div>
 </body>
 <script type="text/javascript" src="js/contenedor.js"></script>
 <?php

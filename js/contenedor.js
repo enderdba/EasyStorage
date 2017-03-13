@@ -15,7 +15,7 @@ $(document).ready(function () {
         selectTam = document.getElementById("tamaño");
         nTamaño = selectTam.options[selectTam.selectedIndex].value;
         selectColor = document.getElementById("color");
-        color = selectTam.options[selectTam.selectedIndex].value;
+        color = selectColor.options[selectColor.selectedIndex].value;
         validarTamaño(nTamaño);
     }
     
@@ -38,15 +38,47 @@ $(document).ready(function () {
             return "Verde";
         }else if(color === "2"){
             return "Azul";
-        }else if(tamaño === "3"){
+        }else if(color === "3"){
             return "Gris";
-        }else if(tamaño === "4"){
+        }else if(color === "4"){
             return "Marrón";
-        }else if(tamaño === "5"){
+        }else if(color === "5"){
             return "Rojo";
         }else{
+            console.log("rip color");
             return "";
         }
+    }
+    
+    function addEvents() {
+        console.log("aja");
+        $(".storageshow").click(function () {
+            console.log("aaaaa = " + $(this).data("target"));
+            $("#modal2").modal('open');
+            actualizarValores();
+            var selectedId = $(this).data("target");
+            //busqueda con nombre
+            selectedId = encodeURI(selectedId);
+            url = "webservice/servicios_contenedor.php?BECI=&id=" + selectedId;
+            console.log(url);
+            
+            $.getJSON(url, function (result) {
+                console.log(result);
+                $.each(result, function (i, field) {
+                    
+                    var id = field.IDCONTENEDOR;
+                    var lote = field.LOTE;
+                    var almacen = field.NOMBRE;
+                    validarTamaño(field.UNIDADES);
+                    var peso = field.PESO;
+                    var color = field.COLOR;
+                    $("#nombre_almacen_mod").val(nombre);
+                    $("#input-max_mod").val(unimax);
+                    $("#input-max_mod").prop("min", unimax);
+                    $("#id_mod").val(id);
+                });
+            });
+        });
     }
     
     var buscar = $("#buscar");
@@ -66,6 +98,8 @@ $(document).ready(function () {
         $("#peso_contenedor").val("");
         $("#n_lote").val("");
         $("#almacen_asociado").val("");
+        $("#almacen_asociado").val("");
+        $("#tamaño").select().val("");
     });
     
     buscar.click(function (){
@@ -136,6 +170,8 @@ $(document).ready(function () {
                         '<td><a class="waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
             });
             $('.table').show("fold", 1000);
+            addEvents();
+            console.log("epa");
         });
         
     });
@@ -149,9 +185,11 @@ $(document).ready(function () {
         nAlmacenAso = encodeURI(nAlmacenAso);
         nLote = encodeURI(nLote);
         valColor = validarColor(color);
+        console.log("length del color: "+valColor.length);
+        console.log("Color: "+valColor);
         if (!$.trim(nLote).length > 0 
                 || !$.trim(valTamaño).length > 0 
-                || !$.trim(peso).toString().length > 0 
+                || !$.trim(peso.toString()).length > 0 
                 || !$.trim(nAlmacenAso).length > 0
                 || !$.trim(valColor).length > 0) {
             Materialize.toast("Debe escribir en todos los campos para crear un Contenedor", 4000);
