@@ -33,7 +33,7 @@ $(document).ready(function () {
                     '<li><a href="BuscarContenedor.php">Contenedores</a></li>' +
                     '<li><a href="GestionTraslados.php">Traslados</a></li>' +
                     '<li><a href="GestionReportes.php">Reportes</a></li>' +
-                    '<li><a href="Herramientas.php">Utilidades</a></li>' +
+                    '<li><a href="AdministrarUsuario.php">Usuarios</a></li>' +
                     '<li><a id="cerrarSesion" href="login.php">Cerrar Sesión</a></li>');
             normalOptions.hide();
             break;

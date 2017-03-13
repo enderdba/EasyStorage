@@ -28,9 +28,9 @@ include('header.php');
                     <h5><i class="material-icons">content_copy</i></h5>
                     <a>Gestión de Reportes</a>
                 </div>
-                <div id="menuRespaldo" class="menu-items" data-tooltip="Gestión de respaldos de base de datos y admistración de usuarios." onclick="window.location = 'Herramientas.php';">
+                <div id="menuRespaldo" class="menu-items" data-tooltip="Gestión y admistración de usuarios." onclick="window.location = 'AdministrarUsuario.php';">
                     <h5><i class="material-icons">build</i></h5>
-                    <a>Utilidades y Herramientas</a>
+                    <a>Gestión de Usuarios</a>
                 </div>
             </div>
             <div id="normalOptions">
@@ -42,9 +42,9 @@ include('header.php');
                     <h5><i class="material-icons">inbox</i></h5>
                     <a>Consultar Contenedores</a>
                 </div>
-                <div id="menuReporte" class="menu-items" data-tooltip="Generar reportes desde y hasta una fecha aproximada." onclick="window.location = 'GestionReportes.php';">
-                    <h5><i class="material-icons">content_copy</i></h5>
-                    <a>Gestión de Reportes</a>
+                <div id="menuRespaldo" class="menu-items" data-tooltip="Gestión y admistración de usuarios." onclick="window.location = 'AdministrarUsuario.php';">
+                    <h5><i class="material-icons">build</i></h5>
+                    <a>Gestión de Usuarios</a>
                 </div>
             </div>
         </div>
