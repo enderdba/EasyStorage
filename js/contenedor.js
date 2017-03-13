@@ -1,7 +1,6 @@
 $(document).ready(function () {
     var inputLote, inputID, esPequeño, esMediano, esGrande;
-    var nContenedor, nAlmacenAso, nTamaño, select, valTamaño;
-    var nAlm;
+    var nLote, nAlmacenAso, nTamaño, selectTam, valTamaño, color, peso, almacenOK;
     
     function actualizarValores() {
         inputLote = $("#lote").val();
@@ -9,10 +8,14 @@ $(document).ready(function () {
         esPequeño = $('#check1').prop('checked');
         esMediano = $('#check2').prop('checked');
         esGrande = $('#check3').prop('checked');
-        nContenedor = $("#new_contenedor").val();
+        
+        peso = $("#peso_contenedor").val();
+        nLote = $("#n_lote").val();
         nAlmacenAso = $("#almacen_asociado").val();
-        select = document.getElementById("tamaño");
-        nTamaño = select.options[select.selectedIndex].value;
+        selectTam = document.getElementById("tamaño");
+        nTamaño = selectTam.options[selectTam.selectedIndex].value;
+        selectColor = document.getElementById("color");
+        color = selectTam.options[selectTam.selectedIndex].value;
         validarTamaño(nTamaño);
     }
     
@@ -29,8 +32,41 @@ $(document).ready(function () {
         }
     }
     
+    //DEVOLVER COLOR DEPENDIENDO DE LA SELECCION
+    function validarColor(color){
+        if(color === "1"){
+            return "Verde";
+        }else if(color === "2"){
+            return "Azul";
+        }else if(tamaño === "3"){
+            return "Gris";
+        }else if(tamaño === "4"){
+            return "Marrón";
+        }else if(tamaño === "5"){
+            return "Rojo";
+        }else{
+            return "";
+        }
+    }
+    
     var buscar = $("#buscar");
     var crear = $("#crear");
+    var nuevo = $("#nuevo");
+    
+    //VALIDAR QUE EL PESO DEL CONTENEDOR A CREAR NO SEA MAYOR A 1000 KG
+    $("#peso_contenedor").keyup(function (){
+        if($("#peso_contenedor").val() > 1000){
+            $("#peso_contenedor").val(1000);
+        }
+    });
+    
+    
+    nuevo.click(function () {
+        console.log("limpio");
+        $("#peso_contenedor").val("");
+        $("#n_lote").val("");
+        $("#almacen_asociado").val("");
+    });
     
     buscar.click(function (){
         actualizarValores();
@@ -107,11 +143,20 @@ $(document).ready(function () {
     //NO ESTA LISTO u.u
     crear.click(function () {
 
-        var almacenOK;
+        var valColor;
         
         actualizarValores();
-        nContenedor = encodeURI(nContenedor);
         nAlmacenAso = encodeURI(nAlmacenAso);
+        nLote = encodeURI(nLote);
+        valColor = validarColor(color);
+        if (!$.trim(nLote).length > 0 
+                || !$.trim(valTamaño).length > 0 
+                || !$.trim(peso).toString().length > 0 
+                || !$.trim(nAlmacenAso).length > 0
+                || !$.trim(valColor).length > 0) {
+            Materialize.toast("Debe escribir en todos los campos para crear un Contenedor", 4000);
+            return;
+        }
 
         //Validar que el nombre del almacen asociado exista y tenga unidades libres
         $.ajax({
@@ -119,9 +164,11 @@ $(document).ready(function () {
             url: "webservice/servicios_contenedor.php",
             data: "NAV=&n="+nAlmacenAso,
             crossDomain: true,
+            async: false,
             cache: false,
             timeout: 10000,
             success: function (data) {
+                almacenOK = true;
                 if (data === "ok") {
                     almacenOK = true;
                 } 
@@ -142,15 +189,13 @@ $(document).ready(function () {
         });
         
         if(!almacenOK){
+            console.log("retorno");
             return;
         }
 
         var url = "webservice/servicios_contenedor.php";
-        var dataString = "NEWCONTENEDOR=&nombrec=" + nContenedor + "&tamano=" + valTamaño + "&alm_aso=" + nAlmacenAso;
-        if (!$.trim(nContenedor).length > 0 && !$.trim(valTamaño).length > 0) {
-            Materialize.toast("Debe escribir en todos los campos para crear un almacén", 3000);
-            return;
-        }
+        var dataString = "NEWCONTENEDOR=&lote=" + nLote + "&alm_aso=" + nAlmacenAso + "&peso=" + peso + "&color="+ valColor + "&idtam="+nTamaño;
+        
         console.log(url + "?" + dataString);
         $.ajax({
             type: "POST",
@@ -160,11 +205,11 @@ $(document).ready(function () {
             cache: false,
             timeout: 10000,
             beforeSend: function () {
-                Materialize.toast("Creando almacén", 2000);
+                Materialize.toast("Registrando Contenedor", 2000);
             },
             success: function (data) {
                 if (data === "ok") {
-                    Materialize.toast('Almacén creado correctamente!', 2000);
+                    Materialize.toast('Contenedor creado correctamente!', 2000);
                     $('.modal').modal();
                 } else {
                     Materialize.toast(data, 4000);
@@ -174,25 +219,28 @@ $(document).ready(function () {
             error: function () {
                 Materialize.toast("Se agotó el tiempo de espera del servidor.");
             }
+            
+            
         });
 
-
-        $.getJSON(url, function (result) {
-            console.log(result);
-            $.each(result, function (i, field) {
-                var id = field.IDALMACEN;
-                var nombre = field.NOMBRE;
-                var unimax = field.UNIMAX;
-                var unilibres = field.UNILIBRES;
-                $("#almacenes").append('<tr>' +
-                        '<td>' + id + '</td>' +
-                        '<td>' + nombre + '</td>' +
-                        '<td>' + unilibres + '</td>' +
-                        '<td>' + unimax + '</td>' +
-                        '<td><a data-target="' + id + '" class="storageshow waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
-            });
-            $('.table').show("fold", 1000);
-        });
+//        $.getJSON(url, function (result) {
+//            console.log(result);
+//            $.each(result, function (i, field) {
+//                var id = field.IDCONTENEDOR;
+//                var lote = field.LOTE;
+//                var tamaño = field.UNIDADES;
+//                var almacenAso = field.NOMBRE;
+//                validarTamaño(tamaño);
+//                $("#contenedores").append('<tr>' +
+//                        '<td>' + id + '</td>' +
+//                        '<td>' + lote + '</td>' +
+//                        '<td>' + valTamaño + '</td>' +
+//                        '<td>' + almacenAso + '</td>' +
+//                        '<td><a class="waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
+//            });
+//            $('.table').show("fold", 1000);
+//        });
+        
     });
     
    }

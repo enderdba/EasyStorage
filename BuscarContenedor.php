@@ -41,7 +41,7 @@ include("header.php");
         <button id="buscar" class="buscar btn waves-effect waves-light orange darken-3">Buscar
             <i class="material-icons right">search</i>
         </button>
-        <a style="background-color:#0F6BFD;"class="waves-effect waves-light btn" href="#modal1"> <i class="material-icons right">add_circle_outline</i>Nuevo</a>
+        <a id="nuevo" style="background-color:#0F6BFD;"class="waves-effect waves-light btn" href="#modal1"> <i class="material-icons right">add_circle_outline</i>Nuevo</a>
     </div>
     <br>
     <br>
@@ -93,20 +93,38 @@ include("header.php");
                 <form style="margin-top: 10px;" class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Nombre" id="new_contenedor" type="text" class="validate">
-                            <label for="almacen_name">Nombre</label>
+                            <input placeholder="Lote del Contenedor" id="n_lote" type="text" class="validate">
+                            <label for="n_lote">Lote</label>
                         </div>
                         <div class="input-field col s12">
+                            
                             <select id="tamaño">
                                 <option value="" disabled selected>Seleccione un tipo de Contenedor</option>
                                 <option value="1">Pequeño</option>
                                 <option value="2">Mediano</option>
                                 <option value="3">Grande</option>
                             </select>
+                            <label for="tamaño">Tamaño</label>
                         </div>
                         <div class="input-field col s12">
-                            <input placeholder="Almacen en donde se ubicara" id="almacen_asociado" type="text" class="validate">
-                            <label for="almacen_aso">Almacen Asociado</label>
+                            <input placeholder="Almacen en donde se ubicará el Contenedor" id="almacen_asociado" type="text" class="validate">
+                            <label for="almacen_asociado">Almacen Asociado</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <select id="color">
+                                <option value="" disabled selected>Seleccione el color del Contenedor</option>
+                                <option value="1">Verde</option>
+                                <option value="2">Azul</option>
+                                <option value="3">Gris</option>
+                                <option value="4">Marrón</option>
+                                <option value="5">Rojo</option>
+                            </select>
+                            <label for="color">Color</label>
+                        </div>
+                        <div class="input-field col s12">
+                            
+                            <input onkeyup="this.value = this.value.replace(/[^0-9]/g, '');" id="peso_contenedor" min="0" max="1000" type="number" step="1"  pattern="\d*" name="value">
+                            <label for="peso_contenedor">Peso (Kg):</label>
                         </div>
                     </div>
                 </form>
@@ -114,7 +132,7 @@ include("header.php");
         </div>
         <div class="modal-footer">
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Crear</a>
+            <a id= "crear" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Crear</a>
         </div>
     </div>
 </body>

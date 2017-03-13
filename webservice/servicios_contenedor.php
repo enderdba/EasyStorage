@@ -88,9 +88,13 @@ if (isset($_REQUEST['BECNI'])) {
 
 //NUEVO CONTENEDOR (AUN NO LISTO)
 if (isset($_REQUEST['NEWCONTENEDOR'])) {
-    $nombre = $_REQUEST['nombrea'];
-    $tamano = $_REQUEST['tamano'];
-    $query = "INSERT INTO ALMACEN (NOMBRE,UNILIBRES, UNIMAX) VALUES ('$nombre',0,'$tamano')";
+    $nlote = $_REQUEST['lote'];
+    $alm = $_REQUEST['alm_aso'];
+    $peso = $_REQUEST['peso'];
+    $color = $_REQUEST['color'];
+    $idt = $_REQUEST['idtam'];
+    $query = "INSERT INTO CONTENEDOR (ALMACEN_IDALMACEN,TAMANO_IDTAMANO, PESO, COLOR, LOTE) "
+            . "VALUES ((SELECT IDALMACEN FROM ALMACEN WHERE NOMBRE = '$alm'),'$idt','$peso','$color','$nlote')";
     $q = mysqli_query($con, $query);
     if ($q) {
         echo "ok";
@@ -101,11 +105,11 @@ if (isset($_REQUEST['NEWCONTENEDOR'])) {
 
 if (isset($_REQUEST['NAV'])) {
     $nombreA = $_REQUEST['n'];
-    $query = "SELECT * FROM CONTENEDOR";
+    $query = "SELECT * FROM ALMACEN WHERE NOMBRE = '".$nombreA."' AND UNILIBRES > 0";
     $q = mysqli_query($con, $query);
-    while ($row = mysqli_fetch_object($q)) {
-        $data[] = $row;
+    if ($q) {
+        echo "ok";
+    } else {
+        echo "Almacen no existe";
     }
-
-    echo json_encode($data);
 }
