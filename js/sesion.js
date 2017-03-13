@@ -2,8 +2,18 @@ $(document).ready(function () {
     var userId = sessionStorage.getItem("id");
     var username = sessionStorage.getItem("username");
     var userType = sessionStorage.getItem("usertype");
+    var indexExists = $("#login-index").html();
     var nav = $("#nav-mobile");
-    console.log(userType);
+
+    if (!userId && !indexExists) {
+        window.location = "login.php";
+    } else if (userId) {
+        $("#logore").prop("href", "index.php");
+    }
+
+
+    $("#username_index").html(username);
+
     //SELECCION DE TIPO DE USUARIO
     switch (userType) {
         case "1":
@@ -26,13 +36,23 @@ $(document).ready(function () {
             break;
     }
 
+    switch (userType) {
+
+        case "1":
+            userType = "Operador";
+
+            break;
+
+        case "2":
+            userType = "Administrador";
+            break;
+
+    }
+
     $("#cerrarSesion").click(function () {
         sessionStorage.removeItem("id");
         sessionStorage.removeItem("username");
         sessionStorage.removeItem("usertype");
     });
 
-//                                    sessionStorage.setItem("id", field.IDUSUARIO);
-//                                sessionStorage.setItem("username", field.NOMBRE);
-//                                sessionStorage.setItem("usertype", field.TIPODEUSUARIO_IDTIPODEUSUARIO);
 });

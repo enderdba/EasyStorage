@@ -7,9 +7,8 @@ include('header.php');
             <h3 style="margin-top:30px;" class=" container  center white-text">Menú Principal</h3>
             <hr>
             <div class="card-content white-text">
-                <span class="card-title">Bienvenido, usuario %nombre_de_usuario% </span>
-                <p>Usted posee un rol actual de Administrador.<br>
-                    La fecha de su ultima sesión fué:</p>
+                <span class="card-title">Bienvenido, usuario <span id="username_index">%nombre_de_usuario%</span> </span>
+                <p>Usted posee un rol actual de <span id="role_index"> Administrador</span>.</p>
             </div>
             <div class="menu-items" data-tooltip="Consulta datos registrados de los almacenes." onclick="window.location = 'BuscarAlmacen.php';">
                 <h5><i class="material-icons">storage</i></h5>

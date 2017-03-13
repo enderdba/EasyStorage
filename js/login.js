@@ -1,5 +1,5 @@
 $(document).ready(function ()
-{
+{   
     $("#insert").click(function () {
 
         var user = encodeURIComponent($("#username").val());

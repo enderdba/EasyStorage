@@ -10,7 +10,7 @@
 
     <nav>
         <div class="nav-wrapper blue darken-4">
-            <a href="login.php" class="brand-logo">-EasyStorage-</a>
+            <a id="logore" href="login.php" class="brand-logo">-EasyStorage-</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
 
             </ul>
