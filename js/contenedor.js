@@ -52,12 +52,12 @@ $(document).ready(function () {
     
     function addEvents() {
         console.log("aja");
+        
         $(".storageshow").click(function () {
             console.log("aaaaa = " + $(this).data("target"));
             $("#modal2").modal('open');
             actualizarValores();
             var selectedId = $(this).data("target");
-            //busqueda con nombre
             selectedId = encodeURI(selectedId);
             url = "webservice/servicios_contenedor.php?BECI=&id=" + selectedId;
             console.log(url);
