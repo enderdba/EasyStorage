@@ -1,6 +1,7 @@
 $(document).ready(function () {
     var inputLote, inputID, esPequeño, esMediano, esGrande;
     var nLote, nAlmacenAso, nTamaño, selectTam, valTamaño, color, peso, almacenOK;
+    var uniLibres;
     
     function actualizarValores() {
         inputLote = $("#lote").val();
@@ -72,10 +73,10 @@ $(document).ready(function () {
                     validarTamaño(field.UNIDADES);
                     var peso = field.PESO;
                     var color = field.COLOR;
-                    $("#nombre_almacen_mod").val(nombre);
-                    $("#input-max_mod").val(unimax);
-                    $("#input-max_mod").prop("min", unimax);
-                    $("#id_mod").val(id);
+//                    $("#nombre_almacen_mod").val(nombre);
+//                    $("#input-max_mod").val(unimax);
+//                    $("#input-max_mod").prop("min", unimax);
+//                    $("#id_mod").val(id);
                 });
             });
         });
@@ -182,6 +183,7 @@ $(document).ready(function () {
         var valColor;
         
         actualizarValores();
+        console.log("tamaño del contenedor = "+nTamaño);
         nAlmacenAso = encodeURI(nAlmacenAso);
         nLote = encodeURI(nLote);
         valColor = validarColor(color);
@@ -200,14 +202,16 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "webservice/servicios_contenedor.php",
-            data: "NAV=&n="+nAlmacenAso,
+            data: "NAV=&n="+nAlmacenAso+"&tam=" + nTamaño,
             crossDomain: true,
             async: false,
             cache: false,
             timeout: 10000,
             success: function (data) {
                 almacenOK = true;
-                if (data === "ok") {
+                if (data !== "Error al intentar consultar la tabla Almacenes") {
+                    data = data.replace('[{"UNILIBRES":"',"");
+                    uniLibres = data.replace('"}]',"");
                     almacenOK = true;
                 } 
 //                else if(data === "sin espacio"){
@@ -230,6 +234,8 @@ $(document).ready(function () {
             console.log("retorno");
             return;
         }
+//        "webservice/servicios_contenedor.php?NAV=&n="+nAlmacenAso+"&tam=" + nTamaño
+
 
         var url = "webservice/servicios_contenedor.php";
         var dataString = "NEWCONTENEDOR=&lote=" + nLote + "&alm_aso=" + nAlmacenAso + "&peso=" + peso + "&color="+ valColor + "&idtam="+nTamaño;
@@ -241,17 +247,45 @@ $(document).ready(function () {
             data: dataString,
             crossDomain: true,
             cache: false,
+            async: false,
             timeout: 10000,
             beforeSend: function () {
                 Materialize.toast("Registrando Contenedor", 2000);
             },
             success: function (data) {
+                
                 if (data === "ok") {
                     Materialize.toast('Contenedor creado correctamente!', 2000);
                     $('.modal').modal();
                 } else {
                     Materialize.toast(data, 4000);
                     $('.modal').modal();
+                }
+            },
+            error: function () {
+                Materialize.toast("Se agotó el tiempo de espera del servidor.");
+            }
+            
+            
+        });
+        
+        console.log("final unilibres = "+uniLibres)
+        var url2 = "webservice/servicios_contenedor.php";
+        var dataString2 = "UPDATEALM=&alma=" + nAlmacenAso + "&tam=" + nTamaño + "&uni="+uniLibres;
+        console.log("dataString2 : "+dataString2);
+        $.ajax({
+            type: "POST",
+            url: url2,
+            data: dataString2,
+            crossDomain: true,
+            cache: false,
+            timeout: 10000,
+            
+            success: function (data) {
+                if (data === "ok") {
+                    Materialize.toast('Se actualizó el almacen asociado!', 2000);
+                } else {
+                    Materialize.toast(data, 10000);
                 }
             },
             error: function () {
