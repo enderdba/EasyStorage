@@ -10,8 +10,6 @@ $(document).ready(function () {
     } else if (userId) {
         $("#logore").prop("href", "index.php");
     }
-
-
     $("#username_index").html(username);
 
     //SELECCION DE TIPO DE USUARIO
