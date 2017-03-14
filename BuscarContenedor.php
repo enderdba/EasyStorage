@@ -158,7 +158,7 @@ include("header.php");
                             <label for="lote_m">Color</label>
                         </div>
                         <div class="input-field col s12">
-                            <label for="spinner">Peso (Kg)</label>
+                            <label for="spinner"></label>
                             <input id="peso_m" min="0" max="100" type="number" step ="1" name="value" disabled>
                         </div>
                     </div>

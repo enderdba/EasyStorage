@@ -1,7 +1,8 @@
 $(document).ready(function () {
     var inputLote, inputID, esPequeño, esMediano, esGrande;
-    var nLote, nAlmacenAso, nTamaño, selectTam, valTamaño, color, peso, almacenOK;
+    var nLote, nAlmacenAso, nTamaño, selectTam, valTamaño, valTamaño2, color, peso, almacenOK;
     var uniLibres;
+    var lote_m,tam_m,alm_m;
     
     function actualizarValores() {
         inputLote = $("#lote").val();
@@ -18,7 +19,11 @@ $(document).ready(function () {
         selectColor = document.getElementById("color");
         color = selectColor.options[selectColor.selectedIndex].value;
         validarTamaño(nTamaño);
+        lote_m = $("#id_mod").val();
+        alm_m = $("#alm_m").val();
+        tam_m = $("#tam_m").val();
     }
+    
     
     //DEPENDIENDO DEL ID DE TAMAÑO, DEVOLVER RESULTADO
     function validarTamaño(tamaño){
@@ -30,6 +35,18 @@ $(document).ready(function () {
             valTamaño = "Grande";
         }else{
             valTamaño = "Esto no deberia aparecer";
+        }
+    }
+    
+    function validarTamañoReverse(tam){
+        if(tam === "Pequeño"){
+            valTamaño2 = "1";
+        }else if (tam === "Mediano"){
+            valTamaño2 = "2";
+        }else if (tam === "Grande"){
+            valTamaño2 = "3";
+        }else{
+            valTamaño2 = "Esto no deberia aparecer";
         }
     }
     
@@ -60,23 +77,23 @@ $(document).ready(function () {
             actualizarValores();
             var selectedId = $(this).data("target");
             selectedId = encodeURI(selectedId);
-            url = "webservice/servicios_contenedor.php?BECI=&id=" + selectedId;
+            url = "webservice/servicios_contenedor.php?BECI=&idcont=" + selectedId;
             console.log(url);
             
             $.getJSON(url, function (result) {
                 console.log(result);
                 $.each(result, function (i, field) {
                     
-                    var id = field.IDCONTENEDOR;
                     var lote = field.LOTE;
-                    var almacen = field.NOMBRE;
+                    var alm_aso = field.NOMBRE;
                     validarTamaño(field.UNIDADES);
                     var peso = field.PESO;
                     var color = field.COLOR;
-//                    $("#nombre_almacen_mod").val(nombre);
-//                    $("#input-max_mod").val(unimax);
-//                    $("#input-max_mod").prop("min", unimax);
-//                    $("#id_mod").val(id);
+                    $("#id_mod").val(lote);
+                    $("#alm_m").val(alm_aso);
+                    $("#tam_m").val(valTamaño);
+                    $("#peso_m").val(peso);
+                    $("#color_m").val(color);
                 });
             });
         });
@@ -85,6 +102,7 @@ $(document).ready(function () {
     var buscar = $("#buscar");
     var crear = $("#crear");
     var nuevo = $("#nuevo");
+    var eliminar = $("#eliminar");
     
     //VALIDAR QUE EL PESO DEL CONTENEDOR A CREAR NO SEA MAYOR A 1000 KG
     $("#peso_contenedor").keyup(function (){
@@ -93,6 +111,89 @@ $(document).ready(function () {
         }
     });
     
+    
+    eliminar.click(function (){
+        actualizarValores();
+        var uni;
+        var url2 = "webservice/servicios_contenedor.php";
+        var dataString2 = "CONSULTAUNI&alm_m=" + alm_m;
+        var consultaOk = true;
+        $.ajax({
+            type: "POST",
+            url: url2,
+            data: dataString2,
+            crossDomain: true,
+            cache: false,
+            async: false,
+            timeout: 10000,
+            success: function (dataa) {
+                if (dataa !== "Error al intentar consultar la tabla Almacenes") {
+                    dataa = dataa.replace('[{"UNILIBRES":"',"");
+                    uni = dataa.replace('"}]',"");
+                } else {
+                    Materialize.toast("Error al intentar consultar la tabla Almacenes", 4000);
+                    consultaOk = false;
+                }
+            },
+            error: function () {
+                Materialize.toast("Se agotó el tiempo de espera del servidor.");
+                consultaOk = false;
+            }
+        });
+        
+        if(!consultaOk){
+            return;
+        }
+        validarTamañoReverse(tam_m);
+        var url3 = "webservice/servicios_contenedor.php";
+        var dataString3 = "UPDATEALM2&alma=" + alm_m + "&tam=" + valTamaño2 + "&uni="+uni;
+        console.log("update: "+dataString3);
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: dataString3,
+            crossDomain: true,
+            cache: false,
+            async: false,
+            timeout: 10000,
+            success: function (data) {
+                if (data === "ok") {
+                    Materialize.toast('Se actualizaron las unidades del almacen asociado!', 2000);
+                } else {
+                    Materialize.toast(data, 10000);
+                }
+            },
+            error: function () {
+                Materialize.toast("Se agotó el tiempo de espera del servidor.");
+            }
+        });
+        
+        var url = "webservice/servicios_contenedor.php";
+        var dataString = "BORRARCONTENEDOR&lote_m=" + lote_m;
+        console.log(url + "?" + dataString);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: dataString,
+            crossDomain: true,
+            cache: false,
+            async: false,
+            timeout: 10000,
+            beforeSend: function () {
+                Materialize.toast("Eliminando Contenedor..", 2000);
+            },
+            success: function (data) {
+                if (data === "ok") {
+                    Materialize.toast('Contenedor eliminado correctamente!', 2000);
+                } else {
+                    Materialize.toast(data, 4000);
+                }
+            },
+            error: function () {
+                Materialize.toast("Se agotó el tiempo de espera del servidor.");
+            }
+        });
+    });
     
     nuevo.click(function () {
         console.log("limpio");
@@ -168,7 +269,7 @@ $(document).ready(function () {
                         '<td>' + lote + '</td>' +
                         '<td>' + valTamaño + '</td>' +
                         '<td>' + almacenAso + '</td>' +
-                        '<td><a class="storageshow waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
+                        '<td><a data-target="' + id + '" class="storageshow waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
             });
             $('.table').show("fold", 1000);
             addEvents();
@@ -177,7 +278,6 @@ $(document).ready(function () {
         
     });
     
-    //NO ESTA LISTO u.u
     crear.click(function () {
 
         var valColor;
@@ -284,7 +384,7 @@ $(document).ready(function () {
             
             success: function (data) {
                 if (data === "ok") {
-                    Materialize.toast('Se actualizó el almacen asociado!', 2000);
+                    Materialize.toast('Se actualizaron las unidades del almacen asociado!', 2000);
                 } else {
                     Materialize.toast(data, 10000);
                 }

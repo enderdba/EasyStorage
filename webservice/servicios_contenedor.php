@@ -120,6 +120,22 @@ if (isset($_REQUEST['NAV'])) {
     }
 }
 
+if (isset($_REQUEST['CONSULTAUNI'])) {
+    $alm = $_REQUEST['alm_m'];
+    $query = "SELECT UNILIBRES FROM ALMACEN WHERE NOMBRE = '" . $alm . "'";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        $q = mysqli_query($con, $query);
+        while ($row = mysqli_fetch_object($q)) {
+            $data[] = $row;
+        }
+
+        echo json_encode($data);
+    } else {
+        echo "Error al intentar consultar la tabla Almacenes";
+    }
+}
+
 if (isset($_REQUEST['UPDATEALM'])) {
     $alma = $_REQUEST['alma'];
     $tam = $_REQUEST['tam'];
@@ -129,6 +145,30 @@ if (isset($_REQUEST['UPDATEALM'])) {
     if ($q) {
         echo "ok";
     } else {
-        echo $query;
+        echo "Ocurrio un error al momento de actualizar la tabla Almacen";
+    }
+}
+
+if (isset($_REQUEST['UPDATEALM2'])) {
+    $alma = $_REQUEST['alma'];
+    $tam = $_REQUEST['tam'];
+    $uni = $_REQUEST['uni'];
+    $query = "UPDATE ALMACEN SET UNILIBRES = $uni + $tam WHERE NOMBRE = '$alma'";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        echo "ok";
+    } else {
+        echo "Ocurrio un error al momento de actualizar la tabla Almacen";
+    }
+}
+
+if (isset($_REQUEST['BORRARCONTENEDOR'])) {
+    $lote_m = $_REQUEST['lote_m'];
+    $query = "DELETE FROM CONTENEDOR WHERE LOTE = '$lote_m'";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        echo "ok";
+    } else {
+        echo "Ocurrio un error al momento de borrar el Contenedor";
     }
 }
