@@ -6,7 +6,7 @@ include "db.php";
 if (isset($_REQUEST['NEWALMACEN'])) {
     $nombre = $_REQUEST['nombrea'];
     $tamano = $_REQUEST['tamano'];
-    $query = "INSERT INTO ALMACEN (NOMBRE,UNILIBRES, UNIMAX) VALUES ('$nombre',0,'$tamano')";
+    $query = "INSERT INTO ALMACEN (NOMBRE,UNILIBRES, UNIMAX) VALUES ('$nombre','$tamano','$tamano')";
     $q = mysqli_query($con, $query);
     if ($q) {
         echo "ok";
