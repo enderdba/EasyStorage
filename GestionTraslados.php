@@ -7,30 +7,20 @@ include("header.php");
             <h2 class="center">Gestión de Traslados</h2>
             <h5 class="center">Seleccione los almacenes para obtener un contenedor y trasladarlo</h5>
             <div class="left input-field col s5">
-                <select id="almacen1">
-                    <option value="" disabled selected>Seleccione un almacén</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                <select class="browser-default" id="almacen1">
                 </select>
-                <label>Almacen 1</label>
             </div>
 
             <div class="right input-field col s5">
-                <select id="almacen2">
-                    <option value="" disabled selected>Seleccione un almacén</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                <select class="browser-default" id="almacen2">
                 </select>
-                <label>Almacen 2</label>
             </div>
         </div>
     </div>
     <br>
     <div class="container white traslado row">
         <div class="left container a1 col s5">
-            <h4 class="center">Almacen Seleccionado(min/max)</h4>
+            <h4 class="center"><span>Almacen Seleccionado</span>(min/max)</h4>
             <table class="white">
                 <thead>
                     <tr>
@@ -94,5 +84,6 @@ include("header.php");
         </div>
     </div>
 </body>
+<script type="text/javascript" src="js/traslado.js"></script>
 <?php
 include("footer.php");
