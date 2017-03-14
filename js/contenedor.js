@@ -68,8 +68,38 @@ $(document).ready(function () {
         }
     }
     
+    function actualizarResultados(){
+        actualizarValores();
+        $('.table').hide("fold", 1000);
+        $("#contenedores").html("");
+        
+        //URL GENERAL
+        var url = "webservice/servicios_contenedor.php?BGC=";
+        
+        console.log("url final = " + url);
+        
+        $.getJSON(url, function (result) {
+            console.log(result);
+            
+            $.each(result, function (i, field) {
+                var id = field.IDCONTENEDOR;
+                var lote = field.LOTE;
+                var tamaño = field.UNIDADES;
+                var almacenAso = field.NOMBRE;
+                validarTamaño(tamaño);
+                $("#contenedores").append('<tr>' +
+                        '<td>' + id + '</td>' +
+                        '<td>' + lote + '</td>' +
+                        '<td>' + valTamaño + '</td>' +
+                        '<td>' + almacenAso + '</td>' +
+                        '<td><a data-target="' + id + '" class="storageshow waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
+            });
+            $('.table').show("fold", 1000);
+            addEvents();
+        });
+    }
+    
     function addEvents() {
-        console.log("aja");
         
         $(".storageshow").click(function () {
             console.log("aaaaa = " + $(this).data("target"));
@@ -193,6 +223,7 @@ $(document).ready(function () {
                 Materialize.toast("Se agotó el tiempo de espera del servidor.");
             }
         });
+        window.setTimeout(actualizarResultados(), 1000);
     });
     
     nuevo.click(function () {
@@ -273,7 +304,6 @@ $(document).ready(function () {
             });
             $('.table').show("fold", 1000);
             addEvents();
-            console.log("epa");
         });
         
     });
@@ -395,25 +425,7 @@ $(document).ready(function () {
             
             
         });
-
-//        $.getJSON(url, function (result) {
-//            console.log(result);
-//            $.each(result, function (i, field) {
-//                var id = field.IDCONTENEDOR;
-//                var lote = field.LOTE;
-//                var tamaño = field.UNIDADES;
-//                var almacenAso = field.NOMBRE;
-//                validarTamaño(tamaño);
-//                $("#contenedores").append('<tr>' +
-//                        '<td>' + id + '</td>' +
-//                        '<td>' + lote + '</td>' +
-//                        '<td>' + valTamaño + '</td>' +
-//                        '<td>' + almacenAso + '</td>' +
-//                        '<td><a class="waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
-//            });
-//            $('.table').show("fold", 1000);
-//        });
-        
+        window.setTimeout(actualizarResultados(), 1000);
     });
     
    }
