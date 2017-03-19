@@ -107,7 +107,7 @@ $(document).ready(function () {
             actualizarValores();
             var selectedId = $(this).data("target");
             selectedId = encodeURI(selectedId);
-            url = "webservice/servicios_contenedor.php?BECI=&idcont=" + selectedId;
+            url = "webservice/servicios_contenedor.php?BECI2=&idcont=" + selectedId;
             console.log(url);
             
             $.getJSON(url, function (result) {
@@ -147,6 +147,7 @@ $(document).ready(function () {
         var uni;
         var url2 = "webservice/servicios_contenedor.php";
         var dataString2 = "CONSULTAUNI&alm_m=" + alm_m;
+        console.log("servicio 1 Eliminar: "+dataString2);
         var consultaOk = true;
         $.ajax({
             type: "POST",
@@ -157,9 +158,13 @@ $(document).ready(function () {
             async: false,
             timeout: 10000,
             success: function (dataa) {
+                console.log("primera dataa: "+dataa);
                 if (dataa !== "Error al intentar consultar la tabla Almacenes") {
+                    
                     dataa = dataa.replace('[{"UNILIBRES":"',"");
                     uni = dataa.replace('"}]',"");
+                    console.log("primera data: "+uni);
+                    
                 } else {
                     Materialize.toast("Error al intentar consultar la tabla Almacenes", 4000);
                     consultaOk = false;
@@ -213,6 +218,7 @@ $(document).ready(function () {
                 Materialize.toast("Eliminando Contenedor..", 2000);
             },
             success: function (data) {
+                console.log("data = "+data);
                 if (data === "ok") {
                     Materialize.toast('Contenedor eliminado correctamente!', 2000);
                 } else {

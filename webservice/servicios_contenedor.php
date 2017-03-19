@@ -62,6 +62,27 @@ if (isset($_REQUEST['BECI'])) {
     echo json_encode($data);
 }
 
+//BUSQUEDA POR ID EXACTO
+if (isset($_REQUEST['BECI2'])) {
+    $id = $_REQUEST['idcont'];
+    $query = "SELECT * FROM CONTENEDOR INNER JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN INNER JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO WHERE IDCONTENEDOR = $id";
+
+    if (isset($_REQUEST['esp']) == "true") {
+        $query = $query . " AND UNIDADES = 1";
+    } else if (isset($_REQUEST['esm']) == "true") {
+        $query = $query . " AND UNIDADES = 2";
+    } else if (isset($_REQUEST['esg']) == "true") {
+        $query = $query . " AND UNIDADES = 3";
+    }
+
+    $q = mysqli_query($con, $query);
+    while ($row = mysqli_fetch_object($q)) {
+        $data[] = $row;
+    }
+
+    echo json_encode($data);
+}
+
 //BUSQUEDA COMBINADITA
 if (isset($_REQUEST['BECNI'])) {
     $id = $_REQUEST['idcont'];
