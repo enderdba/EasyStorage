@@ -157,12 +157,12 @@ $(document).ready(function () {
             cache: false,
             async: false,
             timeout: 10000,
-            success: function (dataa) {
-                console.log("primera dataa: "+dataa);
-                if (dataa !== "Error al intentar consultar la tabla Almacenes") {
+            success: function (data) {
+                console.log("primera dataa: "+data);
+                if (data !== "Error al intentar consultar la tabla Almacenes") {
                     
-                    dataa = dataa.replace('[{"UNILIBRES":"',"");
-                    uni = dataa.replace('"}]',"");
+                    data = data.replace('[{"UNILIBRES":"',"");
+                    uni = data.replace('"}]',"");
                     console.log("primera data: "+uni);
                     
                 } else {
@@ -309,6 +309,9 @@ $(document).ready(function () {
                         '<td><a data-target="' + id + '" class="storageshow waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
             });
             $('.table').show("fold", 1000);
+            $('#check1').prop('checked', false);
+            $('#check2').prop('checked', false);
+            $('#check3').prop('checked', false);
             addEvents();
         });
         
@@ -371,7 +374,6 @@ $(document).ready(function () {
             console.log("retorno");
             return;
         }
-//        "webservice/servicios_contenedor.php?NAV=&n="+nAlmacenAso+"&tam=" + nTamaño
 
 
         var url = "webservice/servicios_contenedor.php";
