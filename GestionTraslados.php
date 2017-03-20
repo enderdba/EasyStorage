@@ -16,11 +16,12 @@ include("header.php");
                 </select>
             </div>
         </div>
+        <a id="limpiar" style="background-color:#0F6BFD;"class="waves-effect waves-light btn"> <i class="material-icons right">clear_all</i>Limpiar</a>
     </div>
     <br>
     <div class="container white traslado row">
         <div class="left container a1 col s5">
-            <h4 class="center"><span>Almacen Seleccionado</span>(min/max)</h4>
+            <h4 class="center"><span id="a1-name">Almacen Seleccionado</span>(<span id="a1-libre">min</span>/<span id="a1-max">max</span>)</h4>
             <table class="white">
                 <thead>
                     <tr>
@@ -35,7 +36,7 @@ include("header.php");
             </table>
         </div>
         <div class="right white container a2 table col s5">
-            <h4 class="center">Almacen Seleccionado(min/max)</h4>
+            <h4 class="center"><span id="a2-name">Almacen Seleccionado</span>(<span id="a2-libre">min</span>/<span id="a2-max">max</span>)</h4>
             <table class="white">
                 <thead>
                     <tr>
