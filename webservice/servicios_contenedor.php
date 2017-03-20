@@ -21,6 +21,17 @@ if (isset($_REQUEST['BGC'])) {
     echo json_encode($data);
 }
 
+if (isset($_REQUEST['BGCID'])) {
+    $idalma = $_REQUEST['idalma'];
+    $query = "SELECT * FROM CONTENEDOR WHERE ALMACEN_IDALMACEN = '$idalma'";
+    $q = mysqli_query($con, $query);
+    while ($row = mysqli_fetch_object($q)) {
+        $data[] = $row;
+    }
+
+    echo json_encode($data);
+}
+
 //BUSQUEDA POR LOTE
 if (isset($_REQUEST['BECN'])) {
     $lote = $_REQUEST['lote'];
