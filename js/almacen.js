@@ -15,14 +15,18 @@ $(document).ready(function () {
         console.log(inputUnidadesLibres);
     }
 
-    $("#input-max").keyup(function (){
-        if($("#input-max").val() > 100){
+    $("#input-max").keyup(function () {
+        if ($("#input-max").val() > 100) {
             $("#input-max").val(100);
         }
     });
-    
-        $("#input-max_mod").keyup(function (){
-        if($("#input-max_mod").val() > 100){
+
+    $("#input-max_mod").keyup(function () {
+        console.log("ACTIVO COMPADRE EL MINIMO ES" + $("#input-max_mod").prop("min"));
+        console.log("ESO QUIERE DECIR QUE EL ")
+        if ($("#input-max_mod").val() > 100) {
+            $("#input-max_mod").val(100);
+        } else if ($("#input-max_mod").val() < $("#input-max_mod").prop("min")) {
             $("#input-max_mod").val(100);
         }
     });

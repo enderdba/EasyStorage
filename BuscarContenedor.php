@@ -106,8 +106,8 @@ include("header.php");
                             </select>
                             <label for="tamaño">Tamaño</label>
                         </div>
-                        <div class="input-field col s12">
-                            <input placeholder="Almacen en donde se ubicará el Contenedor" id="almacen_asociado" type="text" class="validate">
+                        <div class="input-field col s12 browser-default">
+                            <input placeholder="Almacen en donde se ubicará el Contenedor" id="almacen_asociado" type="text" class="validate browser-default">
                             <label for="almacen_asociado">Almacen Asociado</label>
                         </div>
                         <div class="input-field col s12">
@@ -150,7 +150,7 @@ include("header.php");
                             <label for="tam_m">Tamaño del Contenedor</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="alm_m" placeholder="Almacen Asociado" type="text" disabled>
+                            <input id="alm_m" placeholder="Almacen Asociado " type="text" disabled>
                             <label for="alm_m">Almacen en donde se encuentra</label>
                         </div>
                         <div class="input-field col s12">

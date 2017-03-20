@@ -147,11 +147,53 @@ if (isset($_REQUEST['CONSULTAUNI'])) {
     }
 }
 
+if (isset($_REQUEST['CONSULTAUNID'])) {
+    $idalma = $_REQUEST['idalma'];
+    $query = "SELECT UNILIBRES FROM ALMACEN WHERE id = '" . $idalma . "'";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        $q = mysqli_query($con, $query);
+        while ($row = mysqli_fetch_object($q)) {
+            $data[] = $row;
+        }
+
+        echo json_encode($data);
+    } else {
+        echo "Error al intentar consultar la tabla Almacenes";
+    }
+}
+
 if (isset($_REQUEST['UPDATEALM'])) {
     $alma = $_REQUEST['alma'];
     $tam = $_REQUEST['tam'];
     $uni = $_REQUEST['uni'];
     $query = "UPDATE ALMACEN SET UNILIBRES = $uni - $tam WHERE NOMBRE = '$alma'";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        echo "ok";
+    } else {
+        echo "Ocurrio un error al momento de actualizar la tabla Almacen";
+    }
+}
+
+if (isset($_REQUEST['UPDATEALMID'])) {
+    $alma = $_REQUEST['idalma'];
+    $tam = $_REQUEST['tam'];
+    $uni = $_REQUEST['uni'];
+    $query = "UPDATE ALMACEN SET UNILIBRES = $uni + $tam WHERE IDALMACEN = '$alma'";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        echo "ok";
+    } else {
+        echo "Ocurrio un error al momento de actualizar la tabla Almacen";
+    }
+}
+
+if (isset($_REQUEST['UPDATEALMID2'])) {
+    $alma = $_REQUEST['idalma'];
+    $tam = $_REQUEST['tam'];
+    $uni = $_REQUEST['uni'];
+    $query = "UPDATE ALMACEN SET UNILIBRES = $uni - $tam WHERE IDALMACEN = '$alma'";
     $q = mysqli_query($con, $query);
     if ($q) {
         echo "ok";
@@ -181,5 +223,21 @@ if (isset($_REQUEST['BORRARCONTENEDOR'])) {
         echo "ok";
     } else {
         echo "Ocurrio un error al momento de borrar el Contenedor";
+    }
+}
+
+
+//ender
+
+
+if (isset($_REQUEST['MOVERCONT'])) {
+    $idcont = $_REQUEST['idcont'];
+    $idalma = $_REQUEST['idalma'];
+    $query = "UPDATE CONTENEDOR SET ALMACEN_IDALMACEN = '$idalma' WHERE IDCONTENEDOR = '$idcont'";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        echo "ok";
+    } else {
+        echo "Ocurrio un error al momento de actualizar la tabla Almacen";
     }
 }

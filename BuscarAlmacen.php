@@ -95,7 +95,7 @@ include("header.php");
                         <div class="input-field col s12">
                             <label for="spinner">Peso Máximo:</label>
                             <br>
-                            <p>Nota: La modificación de peso del Almacén dependerá del espacio libre que éste posea.</p>
+                            <p>Nota: Los almacenes no pueden reducirse en tamaño.</p>
                             <input id="input-max_mod" min="0" max="100" type="number" step ="1" name="value">
                         </div>
                     </div>

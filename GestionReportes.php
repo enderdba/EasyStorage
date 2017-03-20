@@ -9,10 +9,10 @@ include("header.php");
                 <h5 class="center">Seleccione una fecha "desde" y "hasta".</h5>
                 <hr>
                 <div class="left col s5">
-                    <input id="input-ini" placeholder="Seleccione la Fecha Inicial" type="date" class="datepicker">
+                    <input id="input-ini" placeholder="Seleccione la Fecha Inicial" type="text" class="datepicker">
                 </div>
                 <div class="right col s5">
-                    <input id="input-fin" placeholder="Seleccione la Fecha Final"type="date" class="datepicker">
+                    <input id="input-fin" placeholder="Seleccione la Fecha Final" type="text" class="datepicker">
                 </div>
             </div>
         </form>

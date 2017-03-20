@@ -12,8 +12,7 @@ $(document).ready(function () {
     $('.buscar').on("click", function () {
         if ($("#input-min").val() > $("#input-max").val()) {
             alert("El peso mínimo es mayor al máximo.");
-        }
-        else {
+        } else {
             $('.table').show("fold", 1000);
         }
     });
@@ -33,24 +32,22 @@ $(document).ready(function () {
         a2.show();
     });
 
-    $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15 // Creates a dropdown of 15 years to control year
-    });
+    $("#input-ini").datepicker();
+    $("#input-fin").datepicker();
 
     $('.buscar-reporte').on("click", function () {
-        var fecha1 = new Date($("#input-ini").val());
-        var fecha2 = new Date($("#input-fin").val());
+        var fecha1 = $("#input-ini").val();
+        var fecha2 = $("#input-fin").val();
+        console.log(fecha1);
+        console.log(fecha2);
 
         if ($("#input-ini").val() && $("#input-fin").val()) {
-            if (Date.parse(fecha1) > Date.parse(fecha2)) {
-                alert("La fecha inicial es mayor a la final");
-            }
-            else {
+            if (fecha1 > fecha2) {
+                Materialize.toast("La fecha inicial es mayor a la final", 3000);
+            } else {
                 $('.table').show("fold", 1000);
             }
-        }
-        else {
+        } else {
             alert("Uno o dos campos están vacios.");
         }
     });

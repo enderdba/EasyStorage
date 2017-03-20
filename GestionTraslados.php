@@ -21,7 +21,7 @@ include("header.php");
     <br>
     <div class="container white traslado row">
         <div class="left container a1 col s5">
-            <h4 class="center"><span id="a1-name">Almacen Seleccionado</span>(<span id="a1-libre">min</span>/<span id="a1-max">max</span>)</h4>
+            <h4 class="center"><span id="a1-name">Almacen Seleccionado</span> (<span id="a1-libre">min</span>/<span id="a1-max">max</span>)</h4>
             <table class="white">
                 <thead>
                     <tr>
@@ -35,7 +35,7 @@ include("header.php");
                 </tbody>
             </table>
         </div>
-        <div class="right white container a2 table col s5">
+        <div id="alma2" class="right white container a2 table col s5">
             <h4 class="center"><span id="a2-name">Almacen Seleccionado</span>(<span id="a2-libre">min</span>/<span id="a2-max">max</span>)</h4>
             <table class="white">
                 <thead>
