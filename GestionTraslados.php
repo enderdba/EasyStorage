@@ -30,25 +30,7 @@ include("header.php");
                         <th data-field="button"></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Contenedor 1</td>
-                        <td>Mediano</td>
-                        <td><a class="waves-effect waves-light btn orange darken-3">mover</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Contenedor 2</td>
-                        <td>Grande</td>
-                        <td><a class="waves-effect waves-light btn orange darken-3">mover</a></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Contenedor 3</td>
-                        <td>Pequeño</td>
-                        <td><a class="waves-effect waves-light btn orange darken-3">mover</a></td>
-                    </tr>
+                <tbody id="contenedores1">
                 </tbody>
             </table>
         </div>
@@ -63,22 +45,7 @@ include("header.php");
                     </tr>
                 </thead>
 
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Contenedor 1</td>
-                        <td>Mediano</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Contenedor 2</td>
-                        <td>Grande</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Contenedor 3</td>
-                        <td>Pequeño</td>
-                    </tr>
+                <tbody id="contenedores2">
                 </tbody>
             </table>
         </div>
