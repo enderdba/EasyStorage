@@ -15,6 +15,17 @@ $(document).ready(function () {
         console.log(inputUnidadesLibres);
     }
 
+    $("#input-max").keyup(function (){
+        if($("#input-max").val() > 100){
+            $("#input-max").val(100);
+        }
+    });
+    
+        $("#input-max_mod").keyup(function (){
+        if($("#input-max_mod").val() > 100){
+            $("#input-max_mod").val(100);
+        }
+    });
     //CAMPOS
     //busqueda
 
