@@ -3,6 +3,52 @@ $(document).ready(function () {
     var nLote, nAlmacenAso, nTamaño, selectTam, valTamaño, valTamaño2, color, peso, almacenOK;
     var uniLibres;
     var lote_m, tam_m, alm_m;
+    
+     // Set our timer global and give a timeout for stop typing.
+    var timer, timeout = 1000;
+    
+    // Just clearing anything the user has in the text field on load.
+    $("#almacen_asociado").val("");
+    
+    // Watch for the user to type in the text field.
+    $("#almacen_asociado").keyup(function()
+    {
+        actualizarValores();
+        // Clear timer if it's set.
+        if (typeof timer != undefined){
+            clearTimeout(timer);
+        }
+        // Set status to show we're typing.
+        $("#status").html("Verificando..").css("color", "#009900");
+
+        
+        $.ajax({
+            type: "POST",
+            url: "webservice/servicios_contenedor.php",
+            data: "EXISTEALM=&n=" + nAlmacenAso,
+            crossDomain: true,
+            async: false,
+            cache: false,
+            timeout: 10000,
+            success: function (data) {
+                console.log("datica: "+data);
+                if (data === "ok") {
+                    timer = setTimeout(function () {
+                        $("#status").html("Almacen Existe").css("color", "#009900");
+                    }, timeout);
+                }else if(data === "noresult"){
+                    timer = setTimeout(function () {
+                        $("#status").html("No existe este almacen").css("color", "#990000");
+                    }, timeout);
+                }
+            },
+            error: function () {
+                Materialize.toast("Se agotó el tiempo de espera del servidor.");
+            }
+        });
+        
+        
+    });
 
     function actualizarValores() {
         inputLote = $("#lote").val();

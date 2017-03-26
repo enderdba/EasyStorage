@@ -152,6 +152,22 @@ if (isset($_REQUEST['NAV'])) {
     }
 }
 
+if (isset($_REQUEST['EXISTEALM'])) {
+    $nombreA = $_REQUEST['n'];
+    $query = "SELECT UNILIBRES FROM ALMACEN WHERE NOMBRE = '" . $nombreA ."'";
+    $q = mysqli_query($con, $query);
+    if ($q) {
+        if (mysqli_num_rows($q) == 0){
+            echo "noresult";
+        }else{
+            echo "ok";
+        }
+    
+    } else {
+        echo "Error al intentar consultar la tabla Almacenes";
+    }
+}
+
 if (isset($_REQUEST['CONSULTAUNI'])) {
     $alm = $_REQUEST['alm_m'];
     $query = "SELECT UNILIBRES FROM ALMACEN WHERE NOMBRE = '" . $alm . "'";
