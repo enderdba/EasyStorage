@@ -154,13 +154,17 @@ if (isset($_REQUEST['NAV'])) {
 
 if (isset($_REQUEST['EXISTEALM'])) {
     $nombreA = $_REQUEST['n'];
-    $query = "SELECT UNILIBRES FROM ALMACEN WHERE NOMBRE = '" . $nombreA ."'";
+    $query = "SELECT NOMBRE FROM ALMACEN WHERE NOMBRE = '" . $nombreA ."'";
     $q = mysqli_query($con, $query);
     if ($q) {
         if (mysqli_num_rows($q) == 0){
             echo "noresult";
         }else{
-            echo "ok";
+            while ($row = mysqli_fetch_object($q)) {
+            $data[] = $row;
+        }
+
+        echo json_encode($data);
         }
     
     } else {

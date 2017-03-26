@@ -15,7 +15,7 @@ $(document).ready(function () {
     {
         actualizarValores();
         // Clear timer if it's set.
-        if (typeof timer != undefined){
+        if (typeof timer !== undefined){
             clearTimeout(timer);
         }
         // Set status to show we're typing.
@@ -32,9 +32,13 @@ $(document).ready(function () {
             timeout: 10000,
             success: function (data) {
                 console.log("datica: "+data);
-                if (data === "ok") {
+                if (data !== "noresult") {
+                    var NombreAlmacen;
+                    NombreAlmacen = data.replace('[{"NOMBRE":"',"").replace('"}]',"");
+                    console.log("nombrealm= "+NombreAlmacen);
                     timer = setTimeout(function () {
                         $("#status").html("Almacen Existe").css("color", "#009900");
+                        $("#almacen_asociado").val(NombreAlmacen);
                     }, timeout);
                 }else if(data === "noresult"){
                     timer = setTimeout(function () {

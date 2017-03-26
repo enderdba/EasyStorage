@@ -21,4 +21,3 @@
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/sesion.js" ></script>
     <script type="text/javascript" src="js/menu.js"></script>
-
