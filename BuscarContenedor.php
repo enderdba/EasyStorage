@@ -133,7 +133,7 @@ include("header.php");
         </div>
         <div class="modal-footer">
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-            <a id= "crear" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Crear</a>
+            <a id= "crear" type="button" disabled="disabled" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Crear</a>
         </div>
     </div>
     <div id="modal2" class="modal">

@@ -39,10 +39,13 @@ $(document).ready(function () {
                     timer = setTimeout(function () {
                         $("#status").html("Almacen Existe").css("color", "#009900");
                         $("#almacen_asociado").val(NombreAlmacen);
+                        document.getElementById("crear").removeAttribute("disabled");
                     }, timeout);
                 }else if(data === "noresult"){
                     timer = setTimeout(function () {
                         $("#status").html("No existe este almacen").css("color", "#990000");
+                        document.getElementById("crear").setAttribute('disabled','disabled');
+                        
                     }, timeout);
                 }
             },
@@ -188,6 +191,19 @@ $(document).ready(function () {
         if ($("#peso_contenedor").val() > 1000) {
             $("#peso_contenedor").val(1000);
         }
+    });
+    
+    var lastval;
+    //VALIDAR QUE EL LOTE NO TENGA MAS DE 45 CARACTERES
+    $("#n_lote").keyup(function () {
+        
+        console.log($("#n_lote").val().toString().length);
+        if ($("#n_lote").val().toString().length > 44) {
+            console.log(lastval);
+            $("#n_lote").val(lastval);
+            alert("El valor del Lote no puede contener mas de 45 caracteres");
+        }
+        lastval = $("#n_lote").val().toString();
     });
 
 
