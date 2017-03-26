@@ -1,0 +1,118 @@
+.form-options{
+    width: 35% !important;
+    padding: 10px !important;
+    padding-top: 5px !important;
+    border-radius: 30px;
+}
+
+html {
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+table{
+    border-radius: 10px;
+}
+
+tr:hover{
+    background-color:darkgray;
+    cursor:pointer;
+}
+
+.search{
+    padding:30px !important;
+}
+
+.input-form{
+    background-color: white !important;
+}
+
+.input-form h3{
+    opacity: 1.0 !important;
+    /*color:black !important;*/
+}
+
+.form-cont{
+    color: black !important;
+    /*    background-color: white !important;*/
+    border-radius: 20px;
+    padding: 20px;
+
+}
+
+.form-cont label{
+    color: darkgray;
+    font-size: medium;
+}
+
+form{
+    margin-top: 150px;
+}
+
+.menu-container{
+    margin-top: 30px;
+    border-radius: 40px;
+    background-color: #0D47A1;
+}
+
+.menu-container p{
+    font-weight: bold;
+}
+
+.menu-items{
+    background-color: #007ab7 !important;
+    border: 10px white solid;
+    border-radius: 10px;
+    display: inline-block;
+    width: 150px;
+    height: 200px;
+    margin:10px;
+}
+
+.carga{
+    background-color: #0D47A1 !important;
+}
+
+.menu-items:hover{
+    cursor: pointer;
+    background-color: #0D47A1 !important;
+    transition: ease;
+}
+
+.menu-items a{
+    color: white;
+    font-size: 16pt;
+    font-weight: bold;
+
+}
+
+.menu-items i{
+    color: white;
+    font-size: 50pt;
+}
+
+/*OVERRIDE DE MATERIALIZE*/
+[type="checkbox"].filled-in:checked+label:after{
+    border: 2px solid orange;
+    background-color: orange;
+}
+
+.picker__weekday-display{
+    background-color: #0f4693 !important;
+}
+
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
+    background-color: #0f4693 !important;
+}
+
+.picker__date-display{
+    background-color: #2366ac !important;
+}
+
+.picker__day.picker__day--today{
+    color: orange;
+}
+
+.picker__close, .picker__today{
+    color: orange;
+}
+
