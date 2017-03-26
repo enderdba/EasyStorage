@@ -201,7 +201,6 @@ $(document).ready(function () {
         if ($("#n_lote").val().toString().length > 44) {
             console.log(lastval);
             $("#n_lote").val(lastval);
-            alert("El valor del Lote no puede contener mas de 45 caracteres");
         }
         lastval = $("#n_lote").val().toString();
     });
