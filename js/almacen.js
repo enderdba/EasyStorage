@@ -96,6 +96,33 @@ $(document).ready(function () {
             });
         });
     }
+    
+    var lastval;
+    //VALIDAR QUE EL NOMBRE DEL ALMACEN NO TENGA MAS DE 45 CARACTERES
+    $("#nombre_almacen").keyup(function () {
+        
+        console.log($("#nombre_almacen").val().toString().length);
+        if ($("#nombre_almacen").val().toString().length > 44) {
+            console.log(lastval);
+            $("#nombre_almacen").val(lastval);
+        }
+        lastval = $("#nombre_almacen").val().toString();
+    });
+    
+    var lastval2;
+    //VALIDAR QUE EL NOMBRE DEL ALMACEN (MODIFICACION) NO TENGA MAS DE 45 CARACTERES
+    $("#nombre_almacen_mod").keyup(function () {
+        
+        console.log($("#nombre_almacen_mod").val().toString().length);
+        if ($("#nombre_almacen_mod").val().toString().length > 44) {
+            console.log(lastval2);
+            $("#nombre_almacen_mod").val(lastval2);
+        }
+        lastval2 = $("#nombre_almacen_mod").val().toString();
+    });
+    
+    
+    
     crear.click(function () {
         actualizarValores();
         newNombre = encodeURI(newNombre);
