@@ -109,7 +109,6 @@ include("header.php");
                         <div class="input-field col s12 browser-default">
                             <input placeholder="Almacen en donde se ubicará el Contenedor" id="almacen_asociado" type="text" class="validate browser-default">
                             <label for="almacen_asociado">Almacen Asociado</label>
-                            <span id="status"></span>
                         </div>
                         <div class="input-field col s12">
                             <select id="color">
@@ -133,7 +132,7 @@ include("header.php");
         </div>
         <div class="modal-footer">
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-            <a id= "crear" type="button" disabled="disabled" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Crear</a>
+            <a id= "crear" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Crear</a>
         </div>
     </div>
     <div id="modal2" class="modal">
@@ -159,9 +158,8 @@ include("header.php");
                             <label for="lote_m">Color</label>
                         </div>
                         <div class="input-field col s12">
-                            <br>
-                            <input id="peso_m" min="0" max="100" type="number" step ="1" disabled>
-                            <label for="peso_m">Peso</label>
+                            <label for="spinner"></label>
+                            <input id="peso_m" min="0" max="100" type="number" step ="1" name="value" disabled>
                         </div>
                     </div>
                 </form>

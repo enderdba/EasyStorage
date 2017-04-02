@@ -73,27 +73,6 @@ if (isset($_REQUEST['BECI'])) {
     echo json_encode($data);
 }
 
-//BUSQUEDA POR ID EXACTO
-if (isset($_REQUEST['BECI2'])) {
-    $id = $_REQUEST['idcont'];
-    $query = "SELECT * FROM CONTENEDOR INNER JOIN ALMACEN ON ALMACEN_IDALMACEN = IDALMACEN INNER JOIN TAMANO ON TAMANO_IDTAMANO = IDTAMANO WHERE IDCONTENEDOR = $id";
-
-    if (isset($_REQUEST['esp']) == "true") {
-        $query = $query . " AND UNIDADES = 1";
-    } else if (isset($_REQUEST['esm']) == "true") {
-        $query = $query . " AND UNIDADES = 2";
-    } else if (isset($_REQUEST['esg']) == "true") {
-        $query = $query . " AND UNIDADES = 3";
-    }
-
-    $q = mysqli_query($con, $query);
-    while ($row = mysqli_fetch_object($q)) {
-        $data[] = $row;
-    }
-
-    echo json_encode($data);
-}
-
 //BUSQUEDA COMBINADITA
 if (isset($_REQUEST['BECNI'])) {
     $id = $_REQUEST['idcont'];
@@ -147,26 +126,6 @@ if (isset($_REQUEST['NAV'])) {
         }
 
         echo json_encode($data);
-    } else {
-        echo "Error al intentar consultar la tabla Almacenes";
-    }
-}
-
-if (isset($_REQUEST['EXISTEALM'])) {
-    $nombreA = $_REQUEST['n'];
-    $query = "SELECT NOMBRE FROM ALMACEN WHERE NOMBRE = '" . $nombreA ."'";
-    $q = mysqli_query($con, $query);
-    if ($q) {
-        if (mysqli_num_rows($q) == 0){
-            echo "noresult";
-        }else{
-            while ($row = mysqli_fetch_object($q)) {
-            $data[] = $row;
-        }
-
-        echo json_encode($data);
-        }
-    
     } else {
         echo "Error al intentar consultar la tabla Almacenes";
     }

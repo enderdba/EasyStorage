@@ -3,59 +3,6 @@ $(document).ready(function () {
     var nLote, nAlmacenAso, nTamaño, selectTam, valTamaño, valTamaño2, color, peso, almacenOK;
     var uniLibres;
     var lote_m, tam_m, alm_m;
-    
-     // Set our timer global and give a timeout for stop typing.
-    var timer, timeout = 1000;
-    
-    // Just clearing anything the user has in the text field on load.
-    $("#almacen_asociado").val("");
-    
-    // Watch for the user to type in the text field.
-    $("#almacen_asociado").keyup(function()
-    {
-        actualizarValores();
-        // Clear timer if it's set.
-        if (typeof timer !== undefined){
-            clearTimeout(timer);
-        }
-        // Set status to show we're typing.
-        $("#status").html("Verificando..").css("color", "#009900");
-
-        
-        $.ajax({
-            type: "POST",
-            url: "webservice/servicios_contenedor.php",
-            data: "EXISTEALM=&n=" + nAlmacenAso,
-            crossDomain: true,
-            async: false,
-            cache: false,
-            timeout: 10000,
-            success: function (data) {
-                console.log("datica: "+data);
-                if (data !== "noresult") {
-                    var NombreAlmacen;
-                    NombreAlmacen = data.replace('[{"NOMBRE":"',"").replace('"}]',"");
-                    console.log("nombrealm= "+NombreAlmacen);
-                    timer = setTimeout(function () {
-                        $("#status").html("Almacen Existe").css("color", "#009900");
-                        $("#almacen_asociado").val(NombreAlmacen);
-                        document.getElementById("crear").removeAttribute("disabled");
-                    }, timeout);
-                }else if(data === "noresult"){
-                    timer = setTimeout(function () {
-                        $("#status").html("No existe este almacen").css("color", "#990000");
-                        document.getElementById("crear").setAttribute('disabled','disabled');
-                        
-                    }, timeout);
-                }
-            },
-            error: function () {
-                Materialize.toast("Se agotó el tiempo de espera del servidor.");
-            }
-        });
-        
-        
-    });
 
     function actualizarValores() {
         inputLote = $("#lote").val();
@@ -159,7 +106,7 @@ $(document).ready(function () {
             actualizarValores();
             var selectedId = $(this).data("target");
             selectedId = encodeURI(selectedId);
-            url = "webservice/servicios_contenedor.php?BECI2=&idcont=" + selectedId;
+            url = "webservice/servicios_contenedor.php?BECI=&idcont=" + selectedId;
             console.log(url);
 
             $.getJSON(url, function (result) {
@@ -192,18 +139,6 @@ $(document).ready(function () {
             $("#peso_contenedor").val(1000);
         }
     });
-    
-    var lastval;
-    //VALIDAR QUE EL LOTE NO TENGA MAS DE 45 CARACTERES
-    $("#n_lote").keyup(function () {
-        
-        console.log($("#n_lote").val().toString().length);
-        if ($("#n_lote").val().toString().length > 44) {
-            console.log(lastval);
-            $("#n_lote").val(lastval);
-        }
-        lastval = $("#n_lote").val().toString();
-    });
 
 
     eliminar.click(function () {
@@ -211,7 +146,6 @@ $(document).ready(function () {
         var uni;
         var url2 = "webservice/servicios_contenedor.php";
         var dataString2 = "CONSULTAUNI&alm_m=" + alm_m;
-        console.log("servicio 1 Eliminar: "+dataString2);
         var consultaOk = true;
         $.ajax({
             type: "POST",
@@ -221,14 +155,10 @@ $(document).ready(function () {
             cache: false,
             async: false,
             timeout: 10000,
-            success: function (data) {
-                console.log("primera dataa: "+data);
-                if (data !== "Error al intentar consultar la tabla Almacenes") {
-                    
-                    data = data.replace('[{"UNILIBRES":"',"");
-                    uni = data.replace('"}]',"");
-                    console.log("primera data: "+uni);
-                    
+            success: function (dataa) {
+                if (dataa !== "Error al intentar consultar la tabla Almacenes") {
+                    dataa = dataa.replace('[{"UNILIBRES":"', "");
+                    uni = dataa.replace('"}]', "");
                 } else {
                     Materialize.toast("Error al intentar consultar la tabla Almacenes", 4000);
                     consultaOk = false;
@@ -282,7 +212,6 @@ $(document).ready(function () {
                 Materialize.toast("Eliminando Contenedor..", 2000);
             },
             success: function (data) {
-                console.log("data = "+data);
                 if (data === "ok") {
                     Materialize.toast('Contenedor eliminado correctamente!', 2000);
                 } else {
@@ -387,9 +316,6 @@ $(document).ready(function () {
                         '<td><a data-target="' + id + '" class="storageshow waves-effect waves-light btn orange darken-3">ver</a></td></tr>');
             });
             $('.table').show("fold", 1000);
-            $('#check1').prop('checked', false);
-            $('#check2').prop('checked', false);
-            $('#check3').prop('checked', false);
             addEvents();
         });
 
@@ -452,6 +378,7 @@ $(document).ready(function () {
             console.log("retorno");
             return;
         }
+//        "webservice/servicios_contenedor.php?NAV=&n="+nAlmacenAso+"&tam=" + nTamaño
 
 
         var url = "webservice/servicios_contenedor.php";
