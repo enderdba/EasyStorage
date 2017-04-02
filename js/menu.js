@@ -35,23 +35,8 @@ $(document).ready(function () {
     $("#input-ini").datepicker();
     $("#input-fin").datepicker();
 
-    $('.buscar-reporte').on("click", function () {
-        var fecha1 = $("#input-ini").val();
-        var fecha2 = $("#input-fin").val();
-        console.log(fecha1);
-        console.log(fecha2);
+    
 
-        if ($("#input-ini").val() && $("#input-fin").val()) {
-            if (fecha1 > fecha2) {
-                Materialize.toast("La fecha inicial es mayor a la final", 3000);
-            } else {
-                $('.table').show("fold", 1000);
-            }
-        } else {
-            alert("Uno o dos campos están vacios.");
-        }
-    });
-    $('.modal').modal();
 
 });
 

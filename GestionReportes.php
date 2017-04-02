@@ -27,38 +27,18 @@ include("header.php");
             <thead>
                 <tr>
                     <th data-field="id">Id</th>
-                    <th data-field="name">Nombre del Contenedor</th>
-                    <th data-field="free">Tamaño</th>
-                    <th data-field="max">Almacenado En</th>
-                    <th data-field="buttons"></th>
+                    <th data-field="cont">Contenedor (Lote)</th>
+                    <th data-field="almO">Almacen Origen</th>
+                    <th data-field="almD">Almacen Destino</th>
+                    <th data-field="fecha">Fecha</th>
                 </tr>
             </thead>
 
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Contenedor 1</td>
-                    <td>Grande</td>
-                    <td>Almacen 1</td>
-                    <td><a class="waves-effect waves-light btn orange darken-3">ver</a></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Contenedor 2</td>
-                    <td>Pequeño</td>
-                    <td>Almacen 1</td>
-                    <td><a class="waves-effect waves-light btn orange darken-3">ver</a></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Contenedor 3</td>
-                    <td>Mediano</td>
-                    <td>Almacen 3</td>
-                    <td><a class="waves-effect waves-light btn orange darken-3">ver</a></td>
-                </tr>
+            <tbody id ="reportes">
             </tbody>
         </table>
     </div>
 </body>
+<script type="text/javascript" src="js/reportes.js"></script>
 <?php
 include("footer.php");
